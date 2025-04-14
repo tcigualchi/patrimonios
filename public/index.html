@@ -291,114 +291,109 @@
     </div>
 
     <script>
-        // Configurações
-        const JSON_FILE = "../patrimonios.json";
-        const REFRESH_INTERVAL = 60000; // 1 minuto
-        
-        // Elementos DOM
-        const loadingElement = document.getElementById('loading');
-        const dataContainer = document.getElementById('data-container');
-        const lastUpdateElement = document.getElementById('last-update');
+    const JSON_FILE = "../patrimonios.json";
+    const REFRESH_INTERVAL = 60000;
 
-        async function loadData() {
-            try {
-                showLoading();
-                
-                const timestamp = new Date().getTime();
-                const response = await fetch(${JSON_FILE}?t=${timestamp});
-                
-                if (!response.ok) {
-                    throw new Error(Erro ${response.status}: ${response.statusText});
-                }
+    const loadingElement = document.getElementById('loading');
+    const dataContainer = document.getElementById('data-container');
+    const lastUpdateElement = document.getElementById('last-update');
 
-                const data = await response.json();
-                renderData(data);
-                updateLastUpdate();
-                
-            } catch (error) {
-                showError(error);
-                console.error('Erro ao carregar dados:', error);
-            } finally {
-                hideLoading();
+    async function loadData() {
+        try {
+            showLoading();
+
+            const timestamp = new Date().getTime();
+            const response = await fetch(`${JSON_FILE}?t=${timestamp}`);
+
+            if (!response.ok) {
+                throw new Error(`Erro ${response.status}: ${response.statusText}`);
             }
+
+            const data = await response.json();
+            renderData(data);
+            updateLastUpdate();
+
+        } catch (error) {
+            showError(error);
+            console.error('Erro ao carregar dados:', error);
+        } finally {
+            hideLoading();
+        }
+    }
+
+    function renderData(items) {
+        if (!items || items.length === 0) {
+            dataContainer.innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-inbox"></i>
+                    <p>Nenhum patrimônio registrado ainda.</p>
+                </div>
+            `;
+            return;
         }
 
-        function renderData(items) {
-            if (!items || items.length === 0) {
-                dataContainer.innerHTML = 
-                    <div class="empty-state">
-                        <i class="fas fa-inbox"></i>
-                        <p>Nenhum patrimônio registrado ainda.</p>
-                    </div>
-                ;
-                return;
-            }
-
-            dataContainer.innerHTML = items.map(item => 
+        dataContainer.innerHTML = items.map(item => {
+            const status = item.status?.toLowerCase() === "inativo" ? "Inativo" : "Ativo";
+            const badgeColor = status === "Inativo" ? "var(--error)" : "var(--primary-light)";
+            
+            return `
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">${item.codigo}</h3>
-                        <span class="badge">Ativo</span>
+                        <h3 class="card-title">${item.codigo || "Sem Código"}</h3>
+                        <span class="badge" style="background-color: ${badgeColor};">${status}</span>
                     </div>
                     <div class="card-body">
-                        <div class="detail-item">
-                            <i class="fas fa-calendar-alt"></i>
-                            <span class="detail-label">Data:</span>
-                            <span class="detail-value">${item.data}</span>
-                        </div>
-                        <div class="detail-item">
-                            <i class="fas fa-laptop"></i>
-                            <span class="detail-label">Dispositivo:</span>
-                            <span class="detail-value">${item.dispositivo}</span>
-                        </div>
+                        ${renderDetail("fas fa-calendar-alt", "Data:", item.data)}
+                        ${renderDetail("fas fa-map-marker-alt", "Local:", item.local)}
+                        ${renderDetail("fas fa-user", "Responsável:", item.responsavel)}
+                        ${renderDetail("fas fa-tag", "Categoria:", item.categoria)}
+                        ${renderDetail("fas fa-info-circle", "Descrição:", item.descricao)}
                     </div>
                 </div>
-            ).join('');
-        }
+            `;
+        }).join('');
+    }
 
-        function showError(error) {
-            dataContainer.innerHTML = 
-                <div class="error-state">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    <h3>Falha na conexão</h3>
-                    <p>${error.message}</p>
-                    <button onclick="location.reload()" class="btn">
-                        <i class="fas fa-sync-alt"></i> Tentar Novamente
-                    </button>
-                </div>
-            ;
-        }
+    function renderDetail(icon, label, value) {
+        return `
+            <div class="detail-item">
+                <i class="${icon}"></i>
+                <span class="detail-label">${label}</span>
+                <span class="detail-value">${value || "Não informado"}</span>
+            </div>
+        `;
+    }
 
-        function updateLastUpdate() {
-            const now = new Date();
-            lastUpdateElement.textContent = Última atualização: ${formatDate(now)};
-        }
+    function showLoading() {
+        loadingElement.style.display = 'flex';
+        dataContainer.innerHTML = '';
+    }
 
-        function formatDate(date) {
-            return date.toLocaleString('pt-BR', {
-                day: '2-digit',
-                month: '2-digit',
-                year: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
-            });
-        }
+    function hideLoading() {
+        loadingElement.style.display = 'none';
+    }
 
-        function showLoading() {
-            loadingElement.style.display = 'flex';
-            dataContainer.innerHTML = '';
-        }
+    function updateLastUpdate() {
+        const now = new Date();
+        const formatted = now.toLocaleString('pt-BR');
+        lastUpdateElement.textContent = `Última atualização: ${formatted}`;
+    }
 
-        function hideLoading() {
-            loadingElement.style.display = 'none';
-        }
+    function showError(error) {
+        dataContainer.innerHTML = `
+            <div class="error-state">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h3>Erro ao carregar</h3>
+                <p>${error.message}</p>
+                <button class="btn" onclick="loadData()"><i class="fas fa-sync-alt"></i> Tentar novamente</button>
+            </div>
+        `;
+    }
 
-        // Inicialização
-        document.addEventListener('DOMContentLoaded', () => {
-            loadData();
-            setInterval(loadData, REFRESH_INTERVAL);
-        });
-    </script>
+    // Inicia o carregamento dos dados ao abrir a página
+    loadData();
+    setInterval(loadData, REFRESH_INTERVAL);
+</script>
+
 </body>
 </html>
