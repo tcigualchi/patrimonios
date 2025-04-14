@@ -1,0 +1,56 @@
+name: Update Patrimônios from Gist
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'  # Roda a cada 30 minutos
+  workflow_dispatch:        # Permite acionar manualmente
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Fetch Gist data
+      id: fetch-gist
+      env:
+        GIST_ID: ${{ secrets.GIST_ID }}
+      run: |
+        GIST_FILE="patrimonios.json"
+        
+        echo "Baixando dados do Gist $GIST_ID..."
+        GIST_CONTENT=$(curl -s -H "Authorization: token ${{ secrets.GH_PAT }}" \
+          "https://api.github.com/gists/$GIST_ID" | \
+          jq -r --arg FILE "$GIST_FILE" '.files[$FILE].content')
+        
+        if jq -e . >/dev/null 2>&1 <<<"$GIST_CONTENT"; then
+          echo "$GIST_CONTENT" > patrimonios.json
+          echo "Dados do Gist salvos com sucesso"
+          echo "HAS_CHANGES=true" >> $GITHUB_OUTPUT
+        else
+          echo "Erro: Conteúdo do Gist não é um JSON válido"
+          echo "HAS_CHANGES=false" >> $GITHUB_OUTPUT
+          exit 1
+        fi
+
+    - name: Commit and push changes
+      if: steps.fetch-gist.outputs.HAS_CHANGES == 'true'
+      env:
+        GH_TOKEN: ${{ secrets.GH_PAT }}
+      run: |
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "actions@github.com"
+        
+        git remote set-url origin https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+        git add patrimonios.json
+        
+        if git commit -m "🔄 Atualização automática de patrimônios do Gist [skip ci]"; then
+          git push
+          echo "Alterações enviadas para o repositório"
+        else
+          echo "Nenhuma alteração para enviar"
+        fi
