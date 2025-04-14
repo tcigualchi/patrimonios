@@ -146,7 +146,7 @@
             font-weight: 400;
         }
 
-        /* Loading State */
+        /* Loading */
         #loading {
             display: flex;
             flex-direction: column;
@@ -171,7 +171,6 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Error State */
         .error-state {
             background: white;
             padding: 2rem;
@@ -198,35 +197,6 @@
             margin-bottom: 1.5rem;
         }
 
-        /* Button */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 500;
-            transition: var(--transition);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .btn:hover {
-            background: var(--secondary);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .btn i {
-            font-size: 1rem;
-        }
-
-        /* Timestamp */
         .timestamp {
             text-align: right;
             font-size: 0.875rem;
@@ -236,7 +206,6 @@
             border-top: 1px solid rgba(0,0,0,0.1);
         }
 
-        /* Empty State */
         .empty-state {
             text-align: center;
             padding: 3rem;
@@ -257,7 +226,6 @@
             font-size: 1.1rem;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .container {
                 padding: 1rem;
@@ -291,109 +259,107 @@
     </div>
 
     <script>
-    const JSON_FILE = "../patrimonios.json";
-    const REFRESH_INTERVAL = 60000;
+        const JSON_FILE = "../patrimonios.json";
+        const REFRESH_INTERVAL = 60000;
 
-    const loadingElement = document.getElementById('loading');
-    const dataContainer = document.getElementById('data-container');
-    const lastUpdateElement = document.getElementById('last-update');
+        const loadingElement = document.getElementById('loading');
+        const dataContainer = document.getElementById('data-container');
+        const lastUpdateElement = document.getElementById('last-update');
 
-    async function loadData() {
-        try {
-            showLoading();
+        async function loadData() {
+            try {
+                showLoading();
+                const timestamp = new Date().getTime();
+                const response = await fetch(`${JSON_FILE}?t=${timestamp}`);
+                
+                if (!response.ok) {
+                    throw new Error(`Erro ${response.status}: ${response.statusText}`);
+                }
 
-            const timestamp = new Date().getTime();
-            const response = await fetch(`${JSON_FILE}?t=${timestamp}`);
+                const data = await response.json();
+                renderData(data);
+                updateLastUpdate();
+            } catch (error) {
+                showError(error);
+                console.error('Erro ao carregar dados:', error);
+            } finally {
+                hideLoading();
+            }
+        }
 
-            if (!response.ok) {
-                throw new Error(`Erro ${response.status}: ${response.statusText}`);
+        function renderData(items) {
+            if (!items || items.length === 0) {
+                dataContainer.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-inbox"></i>
+                        <p>Nenhum patrimônio registrado ainda.</p>
+                    </div>
+                `;
+                return;
             }
 
-            const data = await response.json();
-            renderData(data);
-            updateLastUpdate();
-
-        } catch (error) {
-            showError(error);
-            console.error('Erro ao carregar dados:', error);
-        } finally {
-            hideLoading();
-        }
-    }
-
-    function renderData(items) {
-        if (!items || items.length === 0) {
-            dataContainer.innerHTML = `
-                <div class="empty-state">
-                    <i class="fas fa-inbox"></i>
-                    <p>Nenhum patrimônio registrado ainda.</p>
-                </div>
-            `;
-            return;
-        }
-
-        dataContainer.innerHTML = items.map(item => {
-            const status = item.status?.toLowerCase() === "inativo" ? "Inativo" : "Ativo";
-            const badgeColor = status === "Inativo" ? "var(--error)" : "var(--primary-light)";
-            
-            return `
+            dataContainer.innerHTML = items.map(item => `
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">${item.codigo || "Sem Código"}</h3>
-                        <span class="badge" style="background-color: ${badgeColor};">${status}</span>
+                        <h3 class="card-title">${item.codigo}</h3>
+                        <span class="badge">Ativo</span>
                     </div>
                     <div class="card-body">
-                        ${renderDetail("fas fa-calendar-alt", "Data:", item.data)}
-                        ${renderDetail("fas fa-map-marker-alt", "Local:", item.local)}
-                        ${renderDetail("fas fa-user", "Responsável:", item.responsavel)}
-                        ${renderDetail("fas fa-tag", "Categoria:", item.categoria)}
-                        ${renderDetail("fas fa-info-circle", "Descrição:", item.descricao)}
+                        <div class="detail-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span class="detail-label">Data:</span>
+                            <span class="detail-value">${item.data}</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-user"></i>
+                            <span class="detail-label">Responsável:</span>
+                            <span class="detail-value">${item.responsavel}</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span class="detail-label">Local:</span>
+                            <span class="detail-value">${item.local}</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-tag"></i>
+                            <span class="detail-label">Categoria:</span>
+                            <span class="detail-value">${item.categoria}</span>
+                        </div>
                     </div>
                 </div>
+            `).join('');
+        }
+
+        function showLoading() {
+            loadingElement.style.display = 'flex';
+            dataContainer.style.display = 'none';
+        }
+
+        function hideLoading() {
+            loadingElement.style.display = 'none';
+            dataContainer.style.display = 'grid';
+        }
+
+        function showError(error) {
+            dataContainer.innerHTML = `
+                <div class="error-state">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h3>Erro ao carregar dados</h3>
+                    <p>${error.message}</p>
+                    <button class="btn" onclick="loadData()">
+                        <i class="fas fa-redo-alt"></i> Tentar novamente
+                    </button>
+                </div>
             `;
-        }).join('');
-    }
+        }
 
-    function renderDetail(icon, label, value) {
-        return `
-            <div class="detail-item">
-                <i class="${icon}"></i>
-                <span class="detail-label">${label}</span>
-                <span class="detail-value">${value || "Não informado"}</span>
-            </div>
-        `;
-    }
+        function updateLastUpdate() {
+            const now = new Date();
+            lastUpdateElement.textContent = `Última atualização: ${now.toLocaleString('pt-BR')}`;
+        }
 
-    function showLoading() {
-        loadingElement.style.display = 'flex';
-        dataContainer.innerHTML = '';
-    }
-
-    function hideLoading() {
-        loadingElement.style.display = 'none';
-    }
-
-    function updateLastUpdate() {
-        const now = new Date();
-        const formatted = now.toLocaleString('pt-BR');
-        lastUpdateElement.textContent = `Última atualização: ${formatted}`;
-    }
-
-    function showError(error) {
-        dataContainer.innerHTML = `
-            <div class="error-state">
-                <i class="fas fa-exclamation-triangle"></i>
-                <h3>Erro ao carregar</h3>
-                <p>${error.message}</p>
-                <button class="btn" onclick="loadData()"><i class="fas fa-sync-alt"></i> Tentar novamente</button>
-            </div>
-        `;
-    }
-
-    // Inicia o carregamento dos dados ao abrir a página
-    loadData();
-    setInterval(loadData, REFRESH_INTERVAL);
-</script>
-
+        loadData();
+        setInterval(loadData, REFRESH_INTERVAL);
+    </script>
 </body>
 </html>
