@@ -8,8 +8,7 @@ on:
     - cron: '*/5 * * * *'  # Atualiza a cada 5 minutos
 
 permissions:
-  contents: write
-  gists: read
+  contents: write  # Permissão para escrever no repositório
 
 jobs:
   sync:
@@ -19,7 +18,7 @@ jobs:
 
       - name: Fetch Gist Data
         env:
-          GH_TOKEN: ${{ secrets.GH_PAT }}
+          GH_TOKEN: ${{ secrets.GH_PAT }}  # Token com permissão gist
           GIST_ID: "df6ceeb52f594b01a16495b214d93af0"
         run: |
           # Baixa os dados do Gist
