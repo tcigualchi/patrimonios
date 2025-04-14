@@ -101,7 +101,8 @@
     <script>
         async function loadData() {
             try {
-                const response = await fetch('/patrimonios.json?t=' + Date.now());
+                // URL corrigida - removido '/public' do caminho
+                const response = await fetch('/patrimonios/patrimonios.json?t=' + Date.now());
                 
                 if (!response.ok) {
                     throw new Error(`Erro ${response.status}: ${response.statusText}`);
