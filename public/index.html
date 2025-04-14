@@ -7,7 +7,10 @@
     <style>
         :root {
             --primary: #4285f4;
+            --secondary: #34a853;
             --error: #d32f2f;
+            --text: #333333;
+            --light-gray: #f5f5f5;
         }
 
         body {
@@ -15,76 +18,146 @@
             line-height: 1.6;
             margin: 0;
             padding: 20px;
-            background: #fafafa;
+            background: var(--light-gray);
+            color: var(--text);
         }
 
         .container {
             max-width: 800px;
             margin: 0 auto;
             background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: var(--primary);
+            margin-bottom: 25px;
+            text-align: center;
         }
 
         .card {
             background: white;
-            border-left: 4px solid var(--primary);
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 4px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--secondary);
+            padding: 18px;
+            margin-bottom: 18px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+        }
+
+        .card h3 {
+            color: var(--primary);
+            margin-top: 0;
+            margin-bottom: 10px;
         }
 
         .timestamp {
             color: #666;
-            font-size: 0.8em;
+            font-size: 0.85em;
             text-align: right;
-            margin-top: 20px;
+            margin-top: 25px;
+            font-style: italic;
         }
 
         .error {
             background: #ffebee;
             border-left: 4px solid var(--error);
-            padding: 15px;
+            padding: 20px;
             color: var(--error);
+            border-radius: 6px;
+            margin-top: 20px;
         }
 
         .empty {
             color: #666;
             font-style: italic;
+            text-align: center;
+            padding: 30px;
         }
 
         .btn {
             display: inline-block;
-            margin-top: 10px;
-            padding: 8px 16px;
+            margin-top: 15px;
+            padding: 10px 20px;
             background: var(--primary);
             color: white;
             text-decoration: none;
-            border-radius: 4px;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: #3367d6;
         }
 
         #loading {
             text-align: center;
-            padding: 20px;
+            padding: 30px;
             color: #666;
+            font-size: 1.1em;
+        }
+
+        .loading-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid var(--primary);
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .card {
+                padding: 15px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>📦 Patrimônios Registrados</h1>
-        <div id="loading">⏳ Carregando dados...</div>
+        <div id="loading">
+            <div class="loading-spinner"></div>
+            <p>Carregando dados...</p>
+        </div>
         <div id="data-container"></div>
         <div id="last-update" class="timestamp"></div>
     </div>
 
     <script>
+        // Configurações
+        const REFRESH_INTERVAL = 60000; // 1 minuto
+        const JSON_URL = 'patrimonios.json';
+        
+        // Elementos DOM
+        const loadingElement = document.getElementById('loading');
+        const dataContainer = document.getElementById('data-container');
+        const lastUpdateElement = document.getElementById('last-update');
+
         async function loadData() {
             try {
-                // URL corrigida para raiz
-                const response = await fetch('patrimonios.json?t=' + Date.now());
+                showLoading();
+                
+                // Adiciona timestamp para evitar cache
+                const timestamp = new Date().getTime();
+                const response = await fetch(`${JSON_URL}?t=${timestamp}`);
                 
                 if (!response.ok) {
                     throw new Error(`Erro ${response.status}: ${response.statusText}`);
@@ -92,50 +165,73 @@
 
                 const data = await response.json();
                 renderData(data);
+                updateLastUpdate();
+                
             } catch (error) {
                 showError(error);
+                console.error('Erro ao carregar dados:', error);
             } finally {
-                document.getElementById('loading').style.display = 'none';
+                hideLoading();
             }
         }
 
         function renderData(items) {
-            const container = document.getElementById('data-container');
-            
             if (items.length === 0) {
-                container.innerHTML = '<p class="empty">Nenhum patrimônio registrado ainda.</p>';
+                dataContainer.innerHTML = '<p class="empty">Nenhum patrimônio registrado ainda.</p>';
                 return;
             }
 
-            container.innerHTML = items.map(item => `
+            dataContainer.innerHTML = items.map(item => `
                 <div class="card">
                     <h3>${item.codigo}</h3>
                     <p><strong>Data:</strong> ${item.data}</p>
                     <p><strong>Dispositivo:</strong> ${item.dispositivo}</p>
                 </div>
             `).join('');
-
-            document.getElementById('last-update').textContent = 
-                `Última atualização: ${new Date().toLocaleString()}`;
         }
 
         function showError(error) {
-            document.getElementById('data-container').innerHTML = `
+            dataContainer.innerHTML = `
                 <div class="error">
                     <h3>⚠️ Falha na conexão</h3>
                     <p>${error.message}</p>
-                    <p>Execute manualmente o workflow:</p>
+                    <p>Execute manualmente o workflow de sincronização:</p>
                     <a href="https://github.com/tcigualchi/patrimonios/actions/workflows/static.yml" 
                        target="_blank" class="btn">
                         Executar Sincronização
                     </a>
+                    <p>Ou recarregue a página para tentar novamente.</p>
                 </div>
             `;
         }
 
-        // Carrega inicialmente e a cada 1 minuto
-        loadData();
-        setInterval(loadData, 60000);
+        function updateLastUpdate() {
+            lastUpdateElement.textContent = `Última atualização: ${formatDate(new Date())}`;
+        }
+
+        function formatDate(date) {
+            return date.toLocaleString('pt-BR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        function showLoading() {
+            loadingElement.style.display = 'block';
+        }
+
+        function hideLoading() {
+            loadingElement.style.display = 'none';
+        }
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', () => {
+            loadData();
+            setInterval(loadData, REFRESH_INTERVAL);
+        });
     </script>
 </body>
 </html>
