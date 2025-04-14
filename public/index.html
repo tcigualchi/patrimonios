@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitor de Patrimônios</title>
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>📦 Patrimônios Registrados</h1>
+        <div id="loading">⏳ Carregando dados...</div>
+        <div id="data-container"></div>
+        <div id="last-update" class="timestamp"></div>
+    </div>
+
+    <script>
+        async function loadData() {
+            try {
+                const response = await fetch('/patrimonios.json?t=' + Date.now());
+                
+                if (!response.ok) {
+                    throw new Error(`Erro ${response.status}: ${response.statusText}`);
+                }
+
+                const data = await response.json();
+                renderData(data);
+            } catch (error) {
+                showError(error);
+            }
+        }
+
+        function renderData(items) {
+            const container = document.getElementById('data-container');
+            
+            if (items.length === 0) {
+                container.innerHTML = '<p class="empty">Nenhum patrimônio registrado ainda.</p>';
+                return;
+            }
+
+            container.innerHTML = items.map(item => `
+                <div class="card">
+                    <h3>${item.codigo}</h3>
+                    <p><strong>Data:</strong> ${item.data}</p>
+                    <p><strong>Dispositivo:</strong> ${item.dispositivo}</p>
+                </div>
+            `).join('');
+
+            document.getElementById('last-update').textContent = 
+                `Última atualização: ${new Date().toLocaleString()}`;
+        }
+
+        function showError(error) {
+            document.getElementById('data-container').innerHTML = `
+                <div class="error">
+                    <h3>⚠️ Falha na conexão</h3>
+                    <p>${error.message}</p>
+                    <a href="https://github.com/${location.pathname.split('/')[1]}/actions" 
+                       target="_blank" class="btn">
+                        Verificar Execução
+                    </a>
+                </div>
+            `;
+        }
+
+        // Carrega inicialmente e a cada 1 minuto
+        loadData();
+        setInterval(loadData, 60000);
+    </script>
+</body>
+</html>
