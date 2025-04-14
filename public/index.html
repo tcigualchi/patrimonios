@@ -4,163 +4,461 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Monitor de Patrimônios</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
+            /* Cores modernas */
             --primary: #4361ee;
             --primary-light: #4895ef;
+            --primary-dark: #3a0ca3;
             --secondary: #3f37c9;
             --success: #4cc9f0;
             --error: #f72585;
             --warning: #f8961e;
-            --dark: #212529;
-            --light: #f8f9fa;
-            --gray: #6c757d;
+            --info: #7209b7;
+            
+            /* Tons de cinza sofisticados */
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-400: #94a3b8;
+            --gray-500: #64748b;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1e293b;
+            --gray-900: #0f172a;
+            
             --white: #ffffff;
+            --black: #000000;
             
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-            --shadow-md: 0 4px 6px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.08);
-            --shadow-lg: 0 10px 25px rgba(0,0,0,0.1), 0 5px 10px rgba(0,0,0,0.05);
+            /* Sombras sutis */
+            --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
             
-            --border-radius: 8px;
-            --card-border-radius: 12px;
-            --transition: all 0.3s ease;
+            /* Bordas */
+            --radius-sm: 0.25rem;
+            --radius-md: 0.375rem;
+            --radius-lg: 0.5rem;
+            --radius-xl: 0.75rem;
+            --radius-2xl: 1rem;
+            --radius-3xl: 1.5rem;
+            --radius-full: 9999px;
+            
+            /* Transições suaves */
+            --transition-colors: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            --transition-transform: transform 0.15s ease-in-out;
+            --transition-opacity: opacity 0.15s ease-in-out;
+            --transition-all: all 0.15s ease-in-out;
+            
+            /* Espaçamentos */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            --space-3xl: 4rem;
         }
 
-        * {
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #f5f7fa;
-            color: var(--dark);
-            line-height: 1.6;
-            padding: 20px;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.5;
+            color: var(--gray-800);
+            background-color: var(--gray-50);
+            min-height: 100vh;
+            padding: var(--space-lg);
         }
 
         .container {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
-            background: white;
-            padding: 20px;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow-md);
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
         }
 
-        h1 {
-            color: var(--primary);
+        /* Header elegante com gradiente */
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--white);
+            padding: var(--space-xl) var(--space-lg);
             text-align: center;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(30deg);
+        }
+
+        .header h1 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: var(--space-sm);
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            font-size: 1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Conteúdo principal */
+        .content {
+            padding: var(--space-xl);
+        }
+
+        /* Card de patrimônio moderno */
+        .patrimonio-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: var(--space-lg);
         }
 
         .patrimonio-item {
-            background: white;
-            margin-bottom: 15px;
-            padding: 15px;
-            border-radius: var(--border-radius);
+            background: var(--white);
+            border-radius: var(--radius-lg);
             box-shadow: var(--shadow-sm);
-            border-left: 4px solid var(--primary);
+            border: 1px solid var(--gray-200);
+            transition: var(--transition-all);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .patrimonio-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-light);
+        }
+
+        .patrimonio-header {
+            background: linear-gradient(to right, var(--primary), var(--primary-light));
+            color: var(--white);
+            padding: var(--space-md);
+            position: relative;
         }
 
         .patrimonio-codigo {
-            font-weight: bold;
-            font-size: 1.2rem;
-            color: var(--primary);
-            margin-bottom: 8px;
+            font-weight: 700;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .patrimonio-codigo i {
+            margin-right: var(--space-sm);
+            font-size: 1.1em;
+        }
+
+        .patrimonio-body {
+            padding: var(--space-md);
         }
 
         .patrimonio-detalhe {
             display: flex;
-            margin-bottom: 5px;
+            margin-bottom: var(--space-sm);
+            align-items: flex-start;
         }
 
         .detalhe-label {
-            font-weight: 500;
-            color: var(--gray);
-            min-width: 80px;
+            font-weight: 600;
+            color: var(--gray-600);
+            min-width: 100px;
+            font-size: 0.875rem;
         }
 
         .detalhe-valor {
-            color: var(--dark);
+            color: var(--gray-800);
+            flex: 1;
+            font-size: 0.9375rem;
         }
 
-        #loading {
+        /* Status e tags */
+        .patrimonio-status {
+            display: inline-block;
+            padding: var(--space-xs) var(--space-sm);
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: var(--radius-full);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: var(--space-sm);
+        }
+
+        .status-active {
+            background-color: rgba(76, 201, 240, 0.1);
+            color: var(--success);
+        }
+
+        .status-inactive {
+            background-color: rgba(247, 37, 133, 0.1);
+            color: var(--error);
+        }
+
+        /* Loading state moderno */
+        .loading-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-2xl);
             text-align: center;
-            padding: 30px;
         }
 
         .loading-spinner {
-            border: 4px solid rgba(67, 97, 238, 0.1);
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(67, 97, 238, 0.1);
+            border-top-color: var(--primary);
             border-radius: 50%;
-            border-top: 4px solid var(--primary);
-            width: 40px;
-            height: 40px;
             animation: spin 1s linear infinite;
-            margin: 0 auto 15px;
+            margin-bottom: var(--space-md);
         }
 
+        .loading-text {
+            color: var(--gray-600);
+            font-size: 0.9375rem;
+        }
+
+        /* Empty state */
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-2xl);
+            text-align: center;
+        }
+
+        .empty-icon {
+            font-size: 3rem;
+            color: var(--gray-300);
+            margin-bottom: var(--space-md);
+        }
+
+        .empty-text {
+            color: var(--gray-600);
+            margin-bottom: var(--space-md);
+        }
+
+        /* Error state */
+        .error-state {
+            background-color: rgba(247, 37, 133, 0.05);
+            border: 1px solid rgba(247, 37, 133, 0.2);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            text-align: center;
+            margin-bottom: var(--space-lg);
+        }
+
+        .error-icon {
+            font-size: 2.5rem;
+            color: var(--error);
+            margin-bottom: var(--space-md);
+        }
+
+        .error-title {
+            color: var(--error);
+            margin-bottom: var(--space-sm);
+            font-weight: 600;
+        }
+
+        .error-message {
+            color: var(--gray-700);
+            margin-bottom: var(--space-md);
+            font-size: 0.9375rem;
+        }
+
+        /* Botão moderno */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            padding: 0.625rem 1.25rem;
+            border-radius: var(--radius-md);
+            transition: var(--transition-all);
+            cursor: pointer;
+            font-size: 0.9375rem;
+            border: none;
+            outline: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-1px);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn i {
+            margin-right: var(--space-xs);
+        }
+
+        /* Footer e timestamp */
+        .footer {
+            border-top: 1px solid var(--gray-200);
+            padding: var(--space-md) var(--space-xl);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--gray-50);
+        }
+
+        .timestamp {
+            color: var(--gray-500);
+            font-size: 0.8125rem;
+        }
+
+        .refresh-btn {
+            background: none;
+            border: none;
+            color: var(--gray-500);
+            cursor: pointer;
+            font-size: 0.8125rem;
+            display: inline-flex;
+            align-items: center;
+            transition: var(--transition-colors);
+        }
+
+        .refresh-btn:hover {
+            color: var(--primary);
+        }
+
+        .refresh-btn i {
+            margin-right: var(--space-xs);
+            font-size: 0.9em;
+        }
+
+        /* Animações */
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
 
-        .error {
-            background: #ffebee;
-            padding: 15px;
-            border-radius: var(--border-radius);
-            margin-bottom: 20px;
-            text-align: center;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .error h3 {
-            color: var(--error);
-            margin-top: 0;
+        /* Responsividade */
+        @media (max-width: 768px) {
+            body {
+                padding: var(--space-md);
+            }
+            
+            .header {
+                padding: var(--space-lg) var(--space-md);
+            }
+            
+            .header h1 {
+                font-size: 1.75rem;
+            }
+            
+            .content {
+                padding: var(--space-lg) var(--space-md);
+            }
+            
+            .patrimonio-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer {
+                flex-direction: column;
+                gap: var(--space-sm);
+                text-align: center;
+            }
         }
 
-        .btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            margin-top: 10px;
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .patrimonio-detalhe {
+                flex-direction: column;
+                gap: var(--space-xs);
+            }
+            
+            .detalhe-label {
+                min-width: auto;
+            }
         }
 
-        .btn:hover {
-            background: var(--secondary);
-        }
-
-        .timestamp {
-            text-align: right;
-            font-size: 0.8rem;
-            color: var(--gray);
-            margin-top: 20px;
-        }
-
-        .empty {
-            text-align: center;
-            color: var(--gray);
-            font-style: italic;
-            padding: 20px;
+        /* Efeitos de entrada */
+        .fade-in {
+            animation: fadeIn 0.3s ease-out forwards;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>📦 Patrimônios Registrados</h1>
-        <div id="loading">
-            <div class="loading-spinner"></div>
-            <p>Carregando dados...</p>
-        </div>
-        <div id="data-container"></div>
-        <div id="last-update" class="timestamp"></div>
+    <div class="container fade-in">
+        <header class="header">
+            <h1><i class="fas fa-boxes"></i> Monitor de Patrimônios</h1>
+            <p>Acompanhe todos os patrimônios registrados em tempo real</p>
+        </header>
+        
+        <main class="content">
+            <div id="loading" class="loading-state">
+                <div class="loading-spinner"></div>
+                <p class="loading-text">Carregando dados dos patrimônios...</p>
+            </div>
+            
+            <div id="data-container" class="patrimonio-list"></div>
+        </main>
+        
+        <footer class="footer">
+            <div id="last-update" class="timestamp"></div>
+            <button id="refresh-btn" class="refresh-btn" onclick="loadData()">
+                <i class="fas fa-sync-alt"></i> Atualizar
+            </button>
+        </footer>
     </div>
 
     <script>
@@ -168,16 +466,24 @@
         const GIST_ID = "df6ceeb52f594b01a16495b214d93af0";
         const GIST_FILE = "patrimonios.json";
         const GIST_URL = `https://gist.githubusercontent.com/tcigualchi/${GIST_ID}/raw/${GIST_FILE}`;
-        const REFRESH_INTERVAL = 5000; // 5 segundos
+        const REFRESH_INTERVAL = 30000; // 30 segundos
 
         // Elementos DOM
         const loadingElement = document.getElementById('loading');
         const dataContainer = document.getElementById('data-container');
         const lastUpdateElement = document.getElementById('last-update');
+        const refreshBtn = document.getElementById('refresh-btn');
+
+        // Estado da aplicação
+        let isLoading = false;
 
         async function loadData() {
+            if (isLoading) return;
+            
             try {
+                isLoading = true;
                 showLoading();
+                refreshBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Atualizando...';
                 
                 const timestamp = new Date().getTime();
                 const response = await fetch(`${GIST_URL}?t=${timestamp}`);
@@ -194,26 +500,49 @@
                 showError(error);
                 console.error('Erro ao carregar dados:', error);
             } finally {
+                isLoading = false;
                 hideLoading();
+                refreshBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Atualizar';
             }
         }
 
         function renderData(items) {
             if (!items || items.length === 0) {
-                dataContainer.innerHTML = '<p class="empty">Nenhum patrimônio registrado ainda.</p>';
+                dataContainer.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">
+                            <i class="fas fa-box-open"></i>
+                        </div>
+                        <h3 class="empty-text">Nenhum patrimônio registrado</h3>
+                        <p>Adicione novos patrimônios para começar o monitoramento</p>
+                    </div>
+                `;
                 return;
             }
 
             dataContainer.innerHTML = items.map(item => `
-                <div class="patrimonio-item">
-                    <div class="patrimonio-codigo">${item.codigo}</div>
-                    <div class="patrimonio-detalhe">
-                        <span class="detalhe-label">Data:</span>
-                        <span class="detalhe-valor">${item.data}</span>
+                <div class="patrimonio-item fade-in">
+                    <div class="patrimonio-header">
+                        <div class="patrimonio-codigo">
+                            <i class="fas fa-barcode"></i> ${item.codigo}
+                        </div>
                     </div>
-                    <div class="patrimonio-detalhe">
-                        <span class="detalhe-label">Dispositivo:</span>
-                        <span class="detalhe-valor">${item.dispositivo}</span>
+                    <div class="patrimonio-body">
+                        <div class="patrimonio-detalhe">
+                            <span class="detalhe-label">Data:</span>
+                            <span class="detalhe-valor">${item.data}</span>
+                        </div>
+                        <div class="patrimonio-detalhe">
+                            <span class="detalhe-label">Dispositivo:</span>
+                            <span class="detalhe-valor">${item.dispositivo}</span>
+                        </div>
+                        <div class="patrimonio-detalhe">
+                            <span class="detalhe-label">Localização:</span>
+                            <span class="detalhe-valor">${item.localizacao || 'Não especificada'}</span>
+                        </div>
+                        <div class="patrimonio-status status-active">
+                            <i class="fas fa-circle"></i> Ativo
+                        </div>
                     </div>
                 </div>
             `).join('');
@@ -221,23 +550,45 @@
 
         function showError(error) {
             dataContainer.innerHTML = `
-                <div class="error">
-                    <h3>⚠️ Falha na conexão</h3>
-                    <p>${error.message}</p>
-                    <p>Acesse diretamente o <a href="https://gist.github.com/tcigualchi/${GIST_ID}" target="_blank">Gist</a>.</p>
-                    <button onclick="loadData()" class="btn">Tentar Novamente</button>
+                <div class="error-state">
+                    <div class="error-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h3 class="error-title">Falha na conexão</h3>
+                    <p class="error-message">${error.message || 'Não foi possível carregar os dados'}</p>
+                    <div style="display: flex; gap: 0.5rem; justify-content: center;">
+                        <button onclick="loadData()" class="btn btn-primary">
+                            <i class="fas fa-sync-alt"></i> Tentar novamente
+                        </button>
+                        <a href="https://gist.github.com/tcigualchi/${GIST_ID}" target="_blank" class="btn btn-primary">
+                            <i class="fas fa-external-link-alt"></i> Acessar Gist
+                        </a>
+                    </div>
                 </div>
             `;
         }
 
         function updateLastUpdate() {
-            lastUpdateElement.textContent = `Última atualização: ${formatDate(new Date())}`;
+            const now = new Date();
+            lastUpdateElement.textContent = `Última atualização: ${formatDateTime(now)}`;
+            lastUpdateElement.title = `Atualizado em: ${formatDateTimeFull(now)}`;
         }
 
-        function formatDate(date) {
+        function formatDateTime(date) {
             return date.toLocaleString('pt-BR', {
                 day: '2-digit',
                 month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        function formatDateTimeFull(date) {
+            return date.toLocaleString('pt-BR', {
+                weekday: 'long',
+                day: '2-digit',
+                month: 'long',
                 year: 'numeric',
                 hour: '2-digit',
                 minute: '2-digit',
@@ -246,7 +597,7 @@
         }
 
         function showLoading() {
-            loadingElement.style.display = 'block';
+            loadingElement.style.display = 'flex';
             dataContainer.innerHTML = '';
         }
 
@@ -258,6 +609,15 @@
         document.addEventListener('DOMContentLoaded', () => {
             loadData();
             setInterval(loadData, REFRESH_INTERVAL);
+            
+            // Adiciona efeito de rotação ao botão de atualização quando hover
+            refreshBtn.addEventListener('mouseenter', () => {
+                refreshBtn.querySelector('i').style.transform = 'rotate(30deg)';
+            });
+            
+            refreshBtn.addEventListener('mouseleave', () => {
+                refreshBtn.querySelector('i').style.transform = 'rotate(0)';
+            });
         });
     </script>
 </body>
