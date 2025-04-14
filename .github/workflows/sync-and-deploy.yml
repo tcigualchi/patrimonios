@@ -11,7 +11,7 @@ permissions:
   contents: write
   pages: write
   id-token: write
-  gists: read
+  
 
 jobs:
   sync-data:
