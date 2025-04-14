@@ -4,24 +4,295 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Monitor de Patrimônios</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* (Mantenha todos os estilos CSS anteriores) */
+        :root {
+            --primary: #4361ee;
+            --primary-light: #4895ef;
+            --secondary: #3f37c9;
+            --success: #4cc9f0;
+            --error: #f72585;
+            --warning: #f8961e;
+            --dark: #212529;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --white: #ffffff;
+            
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 25px rgba(0,0,0,0.1), 0 5px 10px rgba(0,0,0,0.05);
+            
+            --border-radius: 8px;
+            --card-border-radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        h1 i {
+            font-size: 1.8rem;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: var(--card-border-radius);
+            box-shadow: var(--shadow-md);
+            padding: 1.5rem;
+            transition: var(--transition);
+            border-top: 4px solid var(--primary);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--primary);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.35rem 0.65rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            line-height: 1;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: 50rem;
+            background-color: var(--primary-light);
+            color: white;
+        }
+
+        .card-body {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .detail-item i {
+            color: var(--primary);
+            width: 1.5rem;
+            text-align: center;
+        }
+
+        .detail-label {
+            font-weight: 500;
+            color: var(--gray);
+            min-width: 80px;
+        }
+
+        .detail-value {
+            font-weight: 400;
+        }
+
+        /* Loading State */
+        #loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem;
+            text-align: center;
+        }
+
+        .loading-spinner {
+            border: 4px solid rgba(67, 97, 238, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid var(--primary);
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Error State */
+        .error-state {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            text-align: center;
+            max-width: 500px;
+            margin: 2rem auto;
+        }
+
+        .error-state i {
+            font-size: 3rem;
+            color: var(--error);
+            margin-bottom: 1rem;
+        }
+
+        .error-state h3 {
+            color: var(--error);
+            margin-bottom: 0.5rem;
+        }
+
+        .error-state p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Button */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn i {
+            font-size: 1rem;
+        }
+
+        /* Timestamp */
+        .timestamp {
+            text-align: right;
+            font-size: 0.875rem;
+            color: var(--gray);
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(0,0,0,0.1);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            color: var(--gray);
+            opacity: 0.5;
+            margin-bottom: 1rem;
+        }
+
+        .empty-state p {
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>📦 Patrimônios Registrados</h1>
+        <header>
+            <h1><i class="fas fa-boxes"></i> Patrimônios Registrados</h1>
+            <div id="last-update" class="timestamp"></div>
+        </header>
+
         <div id="loading">
             <div class="loading-spinner"></div>
-            <p>Carregando dados...</p>
+            <p>Carregando dados dos patrimônios...</p>
         </div>
-        <div id="data-container"></div>
-        <div id="last-update" class="timestamp"></div>
+
+        <div id="data-container" class="dashboard"></div>
     </div>
 
     <script>
         // Configurações
-        const JSON_FILE = "../patrimonios.json";  // Caminho corrigido para a raiz
+        const JSON_FILE = "../patrimonios.json";
         const REFRESH_INTERVAL = 60000; // 1 minuto
         
         // Elementos DOM
@@ -33,7 +304,6 @@
             try {
                 showLoading();
                 
-                // Adiciona um timestamp para evitar cache
                 const timestamp = new Date().getTime();
                 const response = await fetch(`${JSON_FILE}?t=${timestamp}`);
                 
@@ -55,31 +325,53 @@
 
         function renderData(items) {
             if (!items || items.length === 0) {
-                dataContainer.innerHTML = '<p class="empty">Nenhum patrimônio registrado ainda.</p>';
+                dataContainer.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-inbox"></i>
+                        <p>Nenhum patrimônio registrado ainda.</p>
+                    </div>
+                `;
                 return;
             }
 
             dataContainer.innerHTML = items.map(item => `
                 <div class="card">
-                    <h3>${item.codigo}</h3>
-                    <p><strong>Data:</strong> ${item.data}</p>
-                    <p><strong>Dispositivo:</strong> ${item.dispositivo}</p>
+                    <div class="card-header">
+                        <h3 class="card-title">${item.codigo}</h3>
+                        <span class="badge">Ativo</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="detail-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span class="detail-label">Data:</span>
+                            <span class="detail-value">${item.data}</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-laptop"></i>
+                            <span class="detail-label">Dispositivo:</span>
+                            <span class="detail-value">${item.dispositivo}</span>
+                        </div>
+                    </div>
                 </div>
             `).join('');
         }
 
         function showError(error) {
             dataContainer.innerHTML = `
-                <div class="error">
-                    <h3>⚠️ Falha na conexão</h3>
+                <div class="error-state">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h3>Falha na conexão</h3>
                     <p>${error.message}</p>
-                    <button onclick="location.reload()" class="btn">Tentar Novamente</button>
+                    <button onclick="location.reload()" class="btn">
+                        <i class="fas fa-sync-alt"></i> Tentar Novamente
+                    </button>
                 </div>
             `;
         }
 
         function updateLastUpdate() {
-            lastUpdateElement.textContent = `Última atualização: ${formatDate(new Date())}`;
+            const now = new Date();
+            lastUpdateElement.textContent = `Última atualização: ${formatDate(now)}`;
         }
 
         function formatDate(date) {
@@ -88,12 +380,14 @@
                 month: '2-digit',
                 year: 'numeric',
                 hour: '2-digit',
-                minute: '2-digit'
+                minute: '2-digit',
+                second: '2-digit'
             });
         }
 
         function showLoading() {
-            loadingElement.style.display = 'block';
+            loadingElement.style.display = 'flex';
+            dataContainer.innerHTML = '';
         }
 
         function hideLoading() {
