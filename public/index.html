@@ -277,22 +277,24 @@
 </head>
 <body>
     <div class="container">
-        <h1>📦 Patrimônios Registrados</h1>
+        <header>
+            <h1><i class="fas fa-boxes"></i> Patrimônios Registrados</h1>
+            <div id="last-update" class="timestamp"></div>
+        </header>
+
         <div id="loading">
             <div class="loading-spinner"></div>
-            <p>Carregando dados...</p>
+            <p>Carregando dados dos patrimônios...</p>
         </div>
-        <div id="data-container"></div>
-        <div id="last-update" class="timestamp"></div>
+
+        <div id="data-container" class="dashboard"></div>
     </div>
 
     <script>
-        // Configurações do Gist
-        const GIST_ID = "df6ceeb52f594b01a16495b214d93af0";
-        const GIST_FILE = "patrimonios.json";
-        const GIST_URL = https://gist.githubusercontent.com/tcigualchi/${GIST_ID}/raw/${GIST_FILE};
-        const REFRESH_INTERVAL = 5000; // 5 segundos (para testes)
-
+        // Configurações
+        const JSON_FILE = "../patrimonios.json";
+        const REFRESH_INTERVAL = 60000; // 1 minuto
+        
         // Elementos DOM
         const loadingElement = document.getElementById('loading');
         const dataContainer = document.getElementById('data-container');
@@ -302,9 +304,8 @@
             try {
                 showLoading();
                 
-                // Adiciona timestamp para evitar cache
                 const timestamp = new Date().getTime();
-                const response = await fetch(${GIST_URL}?t=${timestamp});
+                const response = await fetch(${JSON_FILE}?t=${timestamp});
                 
                 if (!response.ok) {
                     throw new Error(Erro ${response.status}: ${response.statusText});
@@ -324,32 +325,53 @@
 
         function renderData(items) {
             if (!items || items.length === 0) {
-                dataContainer.innerHTML = '<p class="empty">Nenhum patrimônio registrado ainda.</p>';
+                dataContainer.innerHTML = 
+                    <div class="empty-state">
+                        <i class="fas fa-inbox"></i>
+                        <p>Nenhum patrimônio registrado ainda.</p>
+                    </div>
+                ;
                 return;
             }
 
             dataContainer.innerHTML = items.map(item => 
                 <div class="card">
-                    <h3>${item.codigo}</h3>
-                    <p><strong>Data:</strong> ${item.data}</p>
-                    <p><strong>Dispositivo:</strong> ${item.dispositivo}</p>
+                    <div class="card-header">
+                        <h3 class="card-title">${item.codigo}</h3>
+                        <span class="badge">Ativo</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="detail-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span class="detail-label">Data:</span>
+                            <span class="detail-value">${item.data}</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-laptop"></i>
+                            <span class="detail-label">Dispositivo:</span>
+                            <span class="detail-value">${item.dispositivo}</span>
+                        </div>
+                    </div>
                 </div>
             ).join('');
         }
 
         function showError(error) {
             dataContainer.innerHTML = 
-                <div class="error">
-                    <h3>⚠️ Falha na conexão</h3>
+                <div class="error-state">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h3>Falha na conexão</h3>
                     <p>${error.message}</p>
-                    <p>Acesse diretamente o <a href="https://gist.github.com/tcigualchi/${GIST_ID}" target="_blank">Gist</a>.</p>
-                    <button onclick="loadData()" class="btn">Tentar Novamente</button>
+                    <button onclick="location.reload()" class="btn">
+                        <i class="fas fa-sync-alt"></i> Tentar Novamente
+                    </button>
                 </div>
             ;
         }
 
         function updateLastUpdate() {
-            lastUpdateElement.textContent = Última atualização: ${formatDate(new Date())};
+            const now = new Date();
+            lastUpdateElement.textContent = Última atualização: ${formatDate(now)};
         }
 
         function formatDate(date) {
@@ -364,7 +386,8 @@
         }
 
         function showLoading() {
-            loadingElement.style.display = 'block';
+            loadingElement.style.display = 'flex';
+            dataContainer.innerHTML = '';
         }
 
         function hideLoading() {
