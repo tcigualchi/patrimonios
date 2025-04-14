@@ -6,7 +6,7 @@
     <title>Monitor de Patrimônios</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-       <style>
+    <style>
         :root {
             --primary: #4361ee;
             --primary-light: #4895ef;
@@ -39,131 +39,70 @@
             background-color: #f5f7fa;
             color: var(--dark);
             line-height: 1.6;
-            padding: 0;
-            margin: 0;
+            padding: 20px;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 800px;
             margin: 0 auto;
-            padding: 2rem;
-        }
-
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
+            background: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
         }
 
         h1 {
             color: var(--primary);
-            font-weight: 700;
-            font-size: 2rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        h1 i {
-            font-size: 1.8rem;
-        }
-
-        .dashboard {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-
-        .card {
-            background: var(--white);
-            border-radius: var(--card-border-radius);
-            box-shadow: var(--shadow-md);
-            padding: 1.5rem;
-            transition: var(--transition);
-            border-top: 4px solid var(--primary);
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .card-title {
-            font-size: 1.25rem;
-            font-weight: 500;
-            color: var(--primary);
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 0.35rem 0.65rem;
-            font-size: 0.75rem;
-            font-weight: 700;
-            line-height: 1;
             text-align: center;
-            white-space: nowrap;
-            vertical-align: baseline;
-            border-radius: 50rem;
-            background-color: var(--primary-light);
-            color: white;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
         }
 
-        .card-body {
-            display: grid;
-            gap: 0.75rem;
+        .patrimonio-item {
+            background: white;
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            border-left: 4px solid var(--primary);
         }
 
-        .detail-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .detail-item i {
+        .patrimonio-codigo {
+            font-weight: bold;
+            font-size: 1.2rem;
             color: var(--primary);
-            width: 1.5rem;
-            text-align: center;
+            margin-bottom: 8px;
         }
 
-        .detail-label {
+        .patrimonio-detalhe {
+            display: flex;
+            margin-bottom: 5px;
+        }
+
+        .detalhe-label {
             font-weight: 500;
             color: var(--gray);
             min-width: 80px;
         }
 
-        .detail-value {
-            font-weight: 400;
+        .detalhe-valor {
+            color: var(--dark);
         }
 
-        /* Loading State */
         #loading {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 3rem;
             text-align: center;
+            padding: 30px;
         }
 
         .loading-spinner {
             border: 4px solid rgba(67, 97, 238, 0.1);
             border-radius: 50%;
             border-top: 4px solid var(--primary);
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             animation: spin 1s linear infinite;
-            margin-bottom: 1rem;
+            margin: 0 auto 15px;
         }
 
         @keyframes spin {
@@ -171,107 +110,45 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Error State */
-        .error-state {
-            background: white;
-            padding: 2rem;
+        .error {
+            background: #ffebee;
+            padding: 15px;
             border-radius: var(--border-radius);
-            box-shadow: var(--shadow-sm);
+            margin-bottom: 20px;
             text-align: center;
-            max-width: 500px;
-            margin: 2rem auto;
         }
 
-        .error-state i {
-            font-size: 3rem;
+        .error h3 {
             color: var(--error);
-            margin-bottom: 1rem;
+            margin-top: 0;
         }
 
-        .error-state h3 {
-            color: var(--error);
-            margin-bottom: 0.5rem;
-        }
-
-        .error-state p {
-            color: var(--gray);
-            margin-bottom: 1.5rem;
-        }
-
-        /* Button */
         .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
             background: var(--primary);
             color: white;
             border: none;
-            padding: 0.75rem 1.5rem;
+            padding: 8px 16px;
             border-radius: var(--border-radius);
             cursor: pointer;
-            font-size: 1rem;
-            font-weight: 500;
-            transition: var(--transition);
-            box-shadow: var(--shadow-sm);
+            margin-top: 10px;
         }
 
         .btn:hover {
             background: var(--secondary);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
         }
 
-        .btn i {
-            font-size: 1rem;
-        }
-
-        /* Timestamp */
         .timestamp {
             text-align: right;
-            font-size: 0.875rem;
+            font-size: 0.8rem;
             color: var(--gray);
-            margin-top: 2rem;
-            padding-top: 1rem;
-            border-top: 1px solid rgba(0,0,0,0.1);
+            margin-top: 20px;
         }
 
-        /* Empty State */
-        .empty-state {
+        .empty {
             text-align: center;
-            padding: 3rem;
-            background: white;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .empty-state i {
-            font-size: 3rem;
             color: var(--gray);
-            opacity: 0.5;
-            margin-bottom: 1rem;
-        }
-
-        .empty-state p {
-            color: var(--gray);
-            font-size: 1.1rem;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .container {
-                padding: 1rem;
-            }
-            
-            .dashboard {
-                grid-template-columns: 1fr;
-            }
-            
-            header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 1rem;
-            }
+            font-style: italic;
+            padding: 20px;
         }
     </style>
 </head>
@@ -291,7 +168,7 @@
         const GIST_ID = "df6ceeb52f594b01a16495b214d93af0";
         const GIST_FILE = "patrimonios.json";
         const GIST_URL = `https://gist.githubusercontent.com/tcigualchi/${GIST_ID}/raw/${GIST_FILE}`;
-        const REFRESH_INTERVAL = 5000; // 5 segundos (para testes)
+        const REFRESH_INTERVAL = 5000; // 5 segundos
 
         // Elementos DOM
         const loadingElement = document.getElementById('loading');
@@ -302,7 +179,6 @@
             try {
                 showLoading();
                 
-                // Adiciona timestamp para evitar cache
                 const timestamp = new Date().getTime();
                 const response = await fetch(`${GIST_URL}?t=${timestamp}`);
                 
@@ -329,10 +205,16 @@
             }
 
             dataContainer.innerHTML = items.map(item => `
-                <div class="card">
-                    <h3>${item.codigo}</h3>
-                    <p><strong>Data:</strong> ${item.data}</p>
-                    <p><strong>Dispositivo:</strong> ${item.dispositivo}</p>
+                <div class="patrimonio-item">
+                    <div class="patrimonio-codigo">${item.codigo}</div>
+                    <div class="patrimonio-detalhe">
+                        <span class="detalhe-label">Data:</span>
+                        <span class="detalhe-valor">${item.data}</span>
+                    </div>
+                    <div class="patrimonio-detalhe">
+                        <span class="detalhe-label">Dispositivo:</span>
+                        <span class="detalhe-valor">${item.dispositivo}</span>
+                    </div>
                 </div>
             `).join('');
         }
@@ -365,6 +247,7 @@
 
         function showLoading() {
             loadingElement.style.display = 'block';
+            dataContainer.innerHTML = '';
         }
 
         function hideLoading() {
