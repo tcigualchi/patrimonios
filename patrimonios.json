@@ -1,1 +1,12 @@
-[{"codigo":"01170584","data":"15\/04\/2025 15:33:11","dispositivo":"moto g71 5G"}]
+[
+  {
+    "codigo": "01170584",
+    "data": "15/04/2025 15:33:11",
+    "dispositivo": "moto g71 5G",
+    "modelo": "teste",
+    "localizacao": "teste",
+    "informacoes": "teste",
+    "updatedAt": "2025-04-15T18:47:39.043Z",
+    "updatedBy": "joao"
+  }
+]
