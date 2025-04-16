@@ -306,5 +306,49 @@
     "modelo": "test",
     "dispositivo": "2201117SG",
     "ativo": "Ativo"
+  },
+  {
+    "codigo": "01047132",
+    "data": "16\/04\/2025 14:47:41",
+    "ordem": 1,
+    "departamento": "Chefia ",
+    "equipamento": "Monitor ",
+    "marca": "AOC",
+    "modelo": "E2050S",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "01047124",
+    "data": "16\/04\/2025 14:49:18",
+    "ordem": 1,
+    "departamento": "Chefia ",
+    "equipamento": "Monitor ",
+    "marca": "AOC",
+    "modelo": "E2050S",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "486633",
+    "data": "16\/04\/2025 14:50:48",
+    "ordem": 1,
+    "departamento": "Chefia ",
+    "equipamento": "Monitor",
+    "marca": "LENOVO",
+    "modelo": "D1960wA",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "01153580",
+    "data": "16\/04\/2025 14:51:41",
+    "ordem": 1,
+    "departamento": "Chefia ",
+    "equipamento": "Monitor ",
+    "marca": "Lenovo",
+    "modelo": "D1960wA",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
   }
 ]
