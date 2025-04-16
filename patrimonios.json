@@ -449,5 +449,27 @@
     "modelo": "F19L",
     "dispositivo": "2201117SG",
     "ativo": "Ativo"
+  },
+  {
+    "codigo": "820242",
+    "data": "16\/04\/2025 19:35:32",
+    "ordem": 1,
+    "departamento": "Professores",
+    "equipamento": "Monitor",
+    "marca": "AOC",
+    "modelo": "F19L",
+    "dispositivo": "moto g71 5G",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "820240",
+    "data": "16\/04\/2025 19:38:09",
+    "ordem": 1,
+    "departamento": "Professores",
+    "equipamento": "Monitor",
+    "marca": "AOC",
+    "modelo": "S19L",
+    "dispositivo": "moto g71 5G",
+    "ativo": "Ativo"
   }
 ]
