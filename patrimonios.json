@@ -20,5 +20,16 @@
     "modelo": "20w3",
     "dispositivo": "moto g71 5G",
     "ativo": "Ativo"
+  },
+  {
+    "codigo": "01186558",
+    "data": "16\/04\/2025 07:46:25",
+    "ordem": 2,
+    "departamento": "informática ",
+    "equipamento": "gabinete",
+    "marca": "lenovo",
+    "modelo": "sm",
+    "dispositivo": "moto g71 5G",
+    "ativo": "Ativo"
   }
 ]
