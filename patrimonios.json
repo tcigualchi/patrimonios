@@ -372,5 +372,93 @@
     "modelo": "W1643C",
     "dispositivo": "2201117SG",
     "ativo": "Ativo"
+  },
+  {
+    "codigo": "811827",
+    "data": "16\/04\/2025 19:08:43",
+    "ordem": 1,
+    "departamento": "UNIP_TOC_19",
+    "equipamento": "Monitor",
+    "marca": "LG",
+    "modelo": "Flatron E1641",
+    "dispositivo": "moto g71 5G",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "820496",
+    "data": "16\/04\/2025 19:09:12",
+    "ordem": 1,
+    "departamento": "UNIP_TOC_20",
+    "equipamento": "Monitor ",
+    "marca": "LG",
+    "modelo": "E1641",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "820226",
+    "data": "16\/04\/2025 19:12:27",
+    "ordem": 2,
+    "departamento": "Professores",
+    "equipamento": "Monitor",
+    "marca": "AOC",
+    "modelo": "F19L",
+    "dispositivo": "moto g71 5G",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "820221",
+    "data": "16\/04\/2025 19:13:37",
+    "ordem": 1,
+    "departamento": "Professores ",
+    "equipamento": "Monitor ",
+    "marca": "AOC",
+    "modelo": "F19L",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "820237",
+    "data": "16\/04\/2025 19:14:47",
+    "ordem": 5,
+    "departamento": "Professores ",
+    "equipamento": "Monitor",
+    "marca": "AOC",
+    "modelo": "F19L",
+    "dispositivo": "moto g71 5G",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "820238",
+    "data": "16\/04\/2025 19:14:59",
+    "ordem": 1,
+    "departamento": "Professores ",
+    "equipamento": "Monitor ",
+    "marca": "AOC",
+    "modelo": "F19L",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "820233",
+    "data": "16\/04\/2025 19:16:19",
+    "ordem": 7,
+    "departamento": "Professores ",
+    "equipamento": "Monitor",
+    "marca": "AOC",
+    "modelo": "F19L",
+    "dispositivo": "moto g71 5G",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "820249",
+    "data": "16\/04\/2025 19:16:16",
+    "ordem": 1,
+    "departamento": "Professores ",
+    "equipamento": "Monitor ",
+    "marca": "AOC",
+    "modelo": "F19L",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
   }
 ]
