@@ -9,5 +9,16 @@
     "modelo": "Dell sgt5",
     "dispositivo": "moto g71 5G",
     "ativo": "Ativo"
+  },
+  {
+    "codigo": "01162243",
+    "data": "16\/04\/2025 13:33:08",
+    "ordem": 1,
+    "departamento": "Informática ",
+    "equipamento": "Monitor",
+    "marca": "Philips ",
+    "modelo": "193V5L",
+    "dispositivo": "moto g71 5G",
+    "ativo": "Ativo"
   }
 ]
