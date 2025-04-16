@@ -1,1 +1,13 @@
-[]
+[
+  {
+    "codigo": "070847022206",
+    "data": "16\/04\/2025 09:45:13",
+    "ordem": 1,
+    "departamento": "veterinária ",
+    "equipamento": "monitor",
+    "marca": "Dell",
+    "modelo": "Dell sgt5",
+    "dispositivo": "moto g71 5G",
+    "ativo": "Ativo"
+  }
+]
