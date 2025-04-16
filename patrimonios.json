@@ -20,5 +20,148 @@
     "modelo": "S19C301F",
     "dispositivo": "moto g71 5G",
     "ativo": "Ativo"
+  },
+  {
+    "codigo": "820255",
+    "data": "16\/04\/2025 13:59:57",
+    "ordem": 2,
+    "departamento": "Professores Recepção ",
+    "equipamento": "Monitor ",
+    "marca": "AOC",
+    "modelo": "F19L",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "01148408",
+    "data": "16\/04\/2025 14:01:01",
+    "ordem": 3,
+    "departamento": "Sala de Acordo 01",
+    "equipamento": "Monitor ",
+    "marca": "Samsung ",
+    "modelo": "LSC19C301",
+    "dispositivo": "moto g71 5G",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "820227",
+    "data": "16\/04\/2025 14:01:11",
+    "ordem": 3,
+    "departamento": "Professores ",
+    "equipamento": "Monitor",
+    "marca": "AOC",
+    "modelo": "F19L",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "806762",
+    "data": "16\/04\/2025 14:01:51",
+    "ordem": 4,
+    "departamento": "Tesouraria Interno 08",
+    "equipamento": "Monitor ",
+    "marca": "BENQ",
+    "modelo": "G925HDA",
+    "dispositivo": "moto g71 5G",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "01150226",
+    "data": "16\/04\/2025 14:03:53",
+    "ordem": 6,
+    "departamento": "Tesouraria Interno 06",
+    "equipamento": "Monitor",
+    "marca": "Samsung ",
+    "modelo": "LS19C301",
+    "dispositivo": "moto g71 5G",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "01150227",
+    "data": "16\/04\/2025 14:04:47",
+    "ordem": 7,
+    "departamento": "Tesouraria Interno 05",
+    "equipamento": "Monitor ",
+    "marca": "Samsung ",
+    "modelo": "LS19C301",
+    "dispositivo": "moto g71 5G",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "820239",
+    "data": "16\/04\/2025 14:05:23",
+    "ordem": 7,
+    "departamento": "Professores ",
+    "equipamento": "Monitor ",
+    "marca": "AOC",
+    "modelo": "F19L",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "01150229",
+    "data": "16\/04\/2025 14:07:00",
+    "ordem": 9,
+    "departamento": "Tesouraria Interno 03",
+    "equipamento": "Monitor",
+    "marca": "Samsung ",
+    "modelo": "S19C301F",
+    "dispositivo": "moto g71 5G",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "01150231",
+    "data": "16\/04\/2025 14:08:44",
+    "ordem": 11,
+    "departamento": "Tesouraria Interno 01",
+    "equipamento": "Monitor",
+    "marca": "Samsung ",
+    "modelo": "S19C301F",
+    "dispositivo": "moto g71 5G",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "820248",
+    "data": "16\/04\/2025 14:09:40",
+    "ordem": 1,
+    "departamento": "Professores ",
+    "equipamento": "Monitor ",
+    "marca": "AOC",
+    "modelo": "F19L",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "498461",
+    "data": "16\/04\/2025 14:10:29",
+    "ordem": 12,
+    "departamento": "UNIP_TOC_28",
+    "equipamento": "Monitor",
+    "marca": "AOC ",
+    "modelo": "1619SWA",
+    "dispositivo": "moto g71 5G",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "820258",
+    "data": "16\/04\/2025 14:11:21",
+    "ordem": 3,
+    "departamento": "Professores ",
+    "equipamento": "Monitor ",
+    "marca": "AOC",
+    "modelo": "F19L",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "465132",
+    "data": "16\/04\/2025 14:12:13",
+    "ordem": 14,
+    "departamento": "UNIP_TOC_30",
+    "equipamento": "Monitor",
+    "marca": "AOC",
+    "modelo": "1619Swa",
+    "dispositivo": "moto g71 5G",
+    "ativo": "Ativo"
   }
 ]
