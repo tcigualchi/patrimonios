@@ -159,6 +159,7 @@
             font-size: 0.875rem;
             font-weight: 600;
             color: var(--gray-600);
+            white-space: nowrap;
         }
 
         .filter-select {
@@ -169,6 +170,7 @@
             font-size: 0.875rem;
             cursor: pointer;
             transition: var(--transition-colors);
+            min-width: 150px;
         }
 
         .filter-select:hover {
@@ -460,6 +462,23 @@
             box-shadow: var(--shadow-sm);
         }
 
+        .btn-secondary {
+            background-color: var(--gray-100);
+            color: var(--gray-800);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--gray-200);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary:active {
+            transform: translateY(0);
+            box-shadow: var(--shadow-sm);
+        }
+
         .btn i {
             margin-right: var(--space-xs);
         }
@@ -521,6 +540,115 @@
             margin-left: 6px;
         }
 
+        /* Modal de exportação */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-2xl);
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-header {
+            background: linear-gradient(to right, var(--primary), var(--primary-light));
+            color: var(--white);
+            padding: var(--space-md) var(--space-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-weight: 600;
+            font-size: 1.25rem;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: var(--space-xs);
+        }
+
+        .modal-body {
+            padding: var(--space-lg);
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        .modal-footer {
+            padding: var(--space-md) var(--space-lg);
+            border-top: 1px solid var(--gray-200);
+            display: flex;
+            justify-content: flex-end;
+            gap: var(--space-md);
+        }
+
+        /* Preview do CSV */
+        .csv-preview {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: var(--gray-50);
+            border-radius: var(--radius-md);
+            padding: var(--space-md);
+            overflow-x: auto;
+            white-space: pre;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            margin-bottom: var(--space-md);
+            border: 1px solid var(--gray-200);
+        }
+
+        .csv-preview-header {
+            font-weight: bold;
+            color: var(--primary-dark);
+            margin-bottom: var(--space-sm);
+        }
+
+        .csv-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-md);
+            margin-bottom: var(--space-lg);
+        }
+
+        .csv-option-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .csv-option-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--gray-700);
+        }
+
+        .csv-option-select {
+            padding: 0.5rem;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--gray-300);
+            font-size: 0.875rem;
+        }
+
         /* Responsividade */
         @media (max-width: 768px) {
             body {
@@ -561,6 +689,10 @@
             .filter-select {
                 width: 100%;
             }
+
+            .csv-options {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 480px) {
@@ -575,6 +707,10 @@
             
             .detalhe-label {
                 min-width: auto;
+            }
+
+            .modal-content {
+                width: 95%;
             }
         }
 
@@ -622,9 +758,14 @@
                 </select>
             </div>
             
-            <button id="reset-filters" class="btn btn-primary" style="margin-left: auto;">
-                <i class="fas fa-filter-circle-xmark"></i> Limpar filtros
-            </button>
+            <div style="display: flex; gap: var(--space-md); margin-left: auto;">
+                <button id="export-btn" class="btn btn-secondary">
+                    <i class="fas fa-file-export"></i> Exportar
+                </button>
+                <button id="reset-filters" class="btn btn-primary">
+                    <i class="fas fa-filter-circle-xmark"></i> Limpar
+                </button>
+            </div>
         </div>
         
         <main class="content">
@@ -647,12 +788,49 @@
         </footer>
     </div>
 
+    <!-- Modal de Exportação -->
+    <div id="export-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title"><i class="fas fa-file-export"></i> Exportar Patrimônios</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="csv-options">
+                    <div class="csv-option-group">
+                        <label class="csv-option-label">Formato:</label>
+                        <select id="export-format" class="csv-option-select">
+                            <option value="csv">CSV (Excel)</option>
+                            <option value="csv-pt">CSV (Portugues, ponto-e-vírgula)</option>
+                        </select>
+                    </div>
+                    <div class="csv-option-group">
+                        <label class="csv-option-label">Conteúdo:</label>
+                        <select id="export-content" class="csv-option-select">
+                            <option value="filtered">Itens filtrados</option>
+                            <option value="all">Todos os itens</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <h4 class="csv-preview-header">Pré-visualização:</h4>
+                <div id="csv-preview" class="csv-preview">Carregando pré-visualização...</div>
+            </div>
+            <div class="modal-footer">
+                <button id="cancel-export" class="btn btn-secondary">Cancelar</button>
+                <button id="confirm-export" class="btn btn-primary">
+                    <i class="fas fa-download"></i> Baixar CSV
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Configurações do Gist
         const GIST_ID = "df6ceeb52f594b01a16495b214d93af0";
         const GIST_FILE = "patrimonios.json";
         const GIST_URL = `https://gist.githubusercontent.com/tcigualchi/${GIST_ID}/raw/${GIST_FILE}`;
-        const REFRESH_INTERVAL = 30000; // 30 segundos
+        const REFRESH_INTERVAL = 300000; // 5 Minutos
 
         // Elementos DOM
         const loadingElement = document.getElementById('loading');
@@ -664,6 +842,14 @@
         const statusFilter = document.getElementById('status-filter');
         const resetFiltersBtn = document.getElementById('reset-filters');
         const itemCounter = document.getElementById('item-counter');
+        const exportBtn = document.getElementById('export-btn');
+        const exportModal = document.getElementById('export-modal');
+        const modalClose = document.querySelector('.modal-close');
+        const cancelExport = document.getElementById('cancel-export');
+        const confirmExport = document.getElementById('confirm-export');
+        const exportFormat = document.getElementById('export-format');
+        const exportContent = document.getElementById('export-content');
+        const csvPreview = document.getElementById('csv-preview');
 
         // Estado da aplicação
         let isLoading = false;
@@ -710,7 +896,7 @@
                 `<option value="${depto === 'Todos departamentos' ? '' : depto}">${depto}</option>`
             ).join('');
             
-            // Filtro por dispositivo (alterado de modelo para dispositivo)
+            // Filtro por dispositivo
             const dispositivos = ['Todos dispositivos', ...new Set(allPatrimonios.map(item => item.dispositivo).filter(Boolean))];
             dispositivoFilter.innerHTML = dispositivos.map(dispositivo => 
                 `<option value="${dispositivo === 'Todos dispositivos' ? '' : dispositivo}">${dispositivo}</option>`
@@ -938,6 +1124,116 @@
             applyFilters();
         }
 
+// Funções para exportação CSV
+function openExportModal() {
+    exportModal.style.display = 'flex';
+    updateCsvPreview();
+}
+
+function closeExportModal() {
+    exportModal.style.display = 'none';
+}
+
+// Função para limpar e preparar os dados
+function sanitizeField(value) {
+    if (!value) return '';
+    return String(value)
+        .replace(/"/g, '""')           // Escape para aspas duplas
+        .replace(/[\r\n]+/g, ' ')      // Remove quebras de linha
+        .trim();
+}
+
+// Função para formatar data
+function formatDate(dateStr, format) {
+    if (!dateStr) return '';
+    const date = new Date(dateStr);
+    if (isNaN(date)) return dateStr;
+
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+
+    return format === 'csv-pt' ? `${day}/${month}/${year}` : `${year}-${month}-${day}`;
+}
+
+    function updateCsvPreview() {
+        const itemsToExport = exportContent.value === 'all' ? allPatrimonios : filteredPatrimonios;
+        const format = exportFormat.value;
+
+        if (itemsToExport.length === 0) {
+            csvPreview.textContent = "Nenhum dado disponível para exportação";
+            return;
+        }
+
+        const delimiter = format === 'csv-pt' ? ';' : ',';
+
+        const headers = [
+            'Codigo', 'Departamento', 'Data', 'Dispositivo', 
+            'Equipamento', 'Marca', 'Modelo', 'Status'
+        ];
+
+        const rows = itemsToExport.map(item => {
+            return [
+                `"${sanitizeField(item.codigo)}"`,
+                `"${sanitizeField(item.departamento)}"`,
+                `"${formatDate(item.data, format)}"`,
+                `"${sanitizeField(item.dispositivo)}"`,
+                `"${sanitizeField(item.equipamento)}"`,
+                `"${sanitizeField(item.marca)}"`,
+                `"${sanitizeField(item.modelo)}"`,
+                `"${sanitizeField(item.ativo)}"`
+            ].join(delimiter);
+        });
+
+        const csvContent = [headers.join(delimiter), ...rows].join('\n');
+        csvPreview.textContent = '\uFEFF' + csvContent; // Adiciona BOM para compatibilidade com Excel
+    }
+
+    function downloadCSV() {
+        const itemsToExport = exportContent.value === 'all' ? allPatrimonios : filteredPatrimonios;
+        const format = exportFormat.value;
+
+        if (itemsToExport.length === 0) {
+            showToast('Nenhum dado para exportar', 'error');
+            return;
+        }
+
+        const delimiter = format === 'csv-pt' ? ';' : ',';
+        const filename = `patrimonios_${new Date().toISOString().slice(0, 10)}.csv`;
+
+        const headers = [
+            'Codigo', 'Departamento', 'Data', 'Dispositivo', 
+            'Equipamento', 'Marca', 'Modelo', 'Status'
+        ];
+
+        const rows = itemsToExport.map(item => {
+            return [
+                `"${sanitizeField(item.codigo)}"`,
+                `"${sanitizeField(item.departamento)}"`,
+                `"${formatDate(item.data, format)}"`,
+                `"${sanitizeField(item.dispositivo)}"`,
+                `"${sanitizeField(item.equipamento)}"`,
+                `"${sanitizeField(item.marca)}"`,
+                `"${sanitizeField(item.modelo)}"`,
+                `"${sanitizeField(item.ativo)}"`
+            ].join(delimiter);
+        });
+
+        const csvContent = '\uFEFF' + [headers.join(delimiter), ...rows].join('\n'); // BOM incluso
+
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', filename);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        showToast('Exportação concluída com sucesso!', 'success');
+        closeExportModal();
+    }
+
         // Inicialização
         document.addEventListener('DOMContentLoaded', () => {
             loadData();
@@ -957,9 +1253,17 @@
             refreshBtn.addEventListener('mouseleave', () => {
                 refreshBtn.querySelector('i').style.transform = 'rotate(0)';
             });
+            
+            // Eventos para exportação
+            exportBtn.addEventListener('click', openExportModal);
+            modalClose.addEventListener('click', closeExportModal);
+            cancelExport.addEventListener('click', closeExportModal);
+            confirmExport.addEventListener('click', downloadCSV);
+            exportFormat.addEventListener('change', updateCsvPreview);
+            exportContent.addEventListener('change', updateCsvPreview);
         });
 
-        // Função para mostrar notificações (adicione o Toastify CSS no head se quiser usar)
+        // Função para mostrar notificações
         function showToast(message, type = 'info') {
             const colors = {
                 info: '#4361ee',
