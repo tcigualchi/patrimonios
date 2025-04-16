@@ -1,56 +1,23 @@
 [
   {
-    "codigo": "7898430194252",
-    "data": "16\/04\/2025 02:33:56",
-    "ordem": 1,
-    "departamento": "Tesouraria ",
-    "equipamento": "Monitor ",
-    "marca": "LG",
-    "modelo": "LG FL500",
-    "dispositivo": "moto g71 5G",
-    "ativo": "Ativo"
-  },
-  {
     "codigo": "7897076914088",
-    "data": "16\/04\/2025 02:43:34",
-    "ordem": 1,
-    "departamento": "testar",
-    "equipamento": "1",
-    "marca": "w",
-    "modelo": "cav",
-    "dispositivo": "moto g71 5G",
-    "ativo": "Ativo"
-  },
-  {
-    "codigo": "https:\/\/sac.desktop.com.br\/",
-    "data": "16\/04\/2025 02:48:51",
-    "ordem": 1,
-    "departamento": "QRCODE",
-    "equipamento": "1",
-    "marca": "2",
-    "modelo": "e",
-    "dispositivo": "moto g71 5G",
-    "ativo": "Ativo"
-  },
-  {
-    "codigo": "9491219640490",
-    "data": "16\/04\/2025 02:51:15",
+    "data": "16\/04\/2025 02:59:53",
     "ordem": 1,
     "departamento": "1",
-    "equipamento": "2",
-    "marca": "3",
-    "modelo": "4",
+    "equipamento": "a",
+    "marca": "d",
+    "modelo": "a",
     "dispositivo": "moto g71 5G",
     "ativo": "Ativo"
   },
   {
-    "codigo": "07901014",
-    "data": "16\/04\/2025 02:54:33",
+    "codigo": "7898430194252",
+    "data": "16\/04\/2025 03:01:41",
     "ordem": 1,
-    "departamento": "1",
-    "equipamento": "qa",
-    "marca": "z",
-    "modelo": "x",
+    "departamento": "t",
+    "equipamento": "hb",
+    "marca": " bhh",
+    "modelo": "hj",
     "dispositivo": "moto g71 5G",
     "ativo": "Ativo"
   }
