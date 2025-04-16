@@ -9,5 +9,27 @@
     "modelo": "LG FL500",
     "dispositivo": "moto g71 5G",
     "ativo": "Ativo"
+  },
+  {
+    "codigo": "7897076914088",
+    "data": "16\/04\/2025 02:43:34",
+    "ordem": 1,
+    "departamento": "testar",
+    "equipamento": "1",
+    "marca": "w",
+    "modelo": "cav",
+    "dispositivo": "moto g71 5G",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "https:\/\/sac.desktop.com.br\/",
+    "data": "16\/04\/2025 02:48:51",
+    "ordem": 1,
+    "departamento": "QRCODE",
+    "equipamento": "1",
+    "marca": "2",
+    "modelo": "e",
+    "dispositivo": "moto g71 5G",
+    "ativo": "Ativo"
   }
 ]
