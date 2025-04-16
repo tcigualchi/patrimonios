@@ -163,5 +163,126 @@
     "modelo": "1619Swa",
     "dispositivo": "moto g71 5G",
     "ativo": "Ativo"
+  },
+  {
+    "codigo": "01047137",
+    "data": "16\/04\/2025 14:14:35",
+    "ordem": 1,
+    "departamento": "Chefia ",
+    "equipamento": "Monitor ",
+    "marca": "AOC",
+    "modelo": "E2050S",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "01047134",
+    "data": "16\/04\/2025 14:18:05",
+    "ordem": 1,
+    "departamento": "Chefia ",
+    "equipamento": "Monitor ",
+    "marca": "AOC",
+    "modelo": "E2050S",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "01095348",
+    "data": "16\/04\/2025 14:20:39",
+    "ordem": 3,
+    "departamento": "Chefia ",
+    "equipamento": "Monitor ",
+    "marca": "Samsung ",
+    "modelo": "S19C301F",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "01144433",
+    "data": "16\/04\/2025 14:22:11",
+    "ordem": 4,
+    "departamento": "Divulgação ",
+    "equipamento": "Monitor ",
+    "marca": "Samsung ",
+    "modelo": "S19E310",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "01144467",
+    "data": "16\/04\/2025 14:23:15",
+    "ordem": 5,
+    "departamento": "Divulgação ",
+    "equipamento": "Monitor ",
+    "marca": "Samsung ",
+    "modelo": "S19E310",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "01180565",
+    "data": "16\/04\/2025 14:24:31",
+    "ordem": 1,
+    "departamento": "oia o bug",
+    "equipamento": "\n\n\n\n\n",
+    "marca": "",
+    "modelo": "",
+    "dispositivo": "SM-A156M",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "820483",
+    "data": "16\/04\/2025 14:25:19",
+    "ordem": 1,
+    "departamento": "TOC D",
+    "equipamento": "Monitor",
+    "marca": "LG",
+    "modelo": "Flatron E1641",
+    "dispositivo": "SM-A156M",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "12172771",
+    "data": "16\/04\/2025 14:27:29",
+    "ordem": 3,
+    "departamento": "TOC D",
+    "equipamento": "monitor ",
+    "marca": "LG",
+    "modelo": "Flatron E1641",
+    "dispositivo": "SM-A156M",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "269739",
+    "data": "16\/04\/2025 14:28:48",
+    "ordem": 6,
+    "departamento": "Áudio Visual",
+    "equipamento": "Monitor ",
+    "marca": "Philips",
+    "modelo": "150s",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "820492",
+    "data": "16\/04\/2025 14:29:01",
+    "ordem": 5,
+    "departamento": "TOC D",
+    "equipamento": "monitor",
+    "marca": "LG",
+    "modelo": "Flatron E1641",
+    "dispositivo": "SM-A156M",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "820487",
+    "data": "16\/04\/2025 14:30:19",
+    "ordem": 7,
+    "departamento": "TOC D",
+    "equipamento": "monitor",
+    "marca": "LG",
+    "modelo": "Flatron E1641",
+    "dispositivo": "SM-A156M",
+    "ativo": "Ativo"
   }
 ]
