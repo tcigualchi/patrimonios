@@ -220,17 +220,6 @@
     "ativo": "Ativo"
   },
   {
-    "codigo": "01180565",
-    "data": "16\/04\/2025 14:24:31",
-    "ordem": 1,
-    "departamento": "oia o bug",
-    "equipamento": "\n\n\n\n\n",
-    "marca": "",
-    "modelo": "",
-    "dispositivo": "SM-A156M",
-    "ativo": "Ativo"
-  },
-  {
     "codigo": "820483",
     "data": "16\/04\/2025 14:25:19",
     "ordem": 1,
@@ -279,6 +268,28 @@
     "data": "16\/04\/2025 14:30:19",
     "ordem": 7,
     "departamento": "TOC D",
+    "equipamento": "monitor",
+    "marca": "LG",
+    "modelo": "Flatron E1641",
+    "dispositivo": "SM-A156M",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "820485",
+    "data": "16\/04\/2025 14:35:42",
+    "ordem": 8,
+    "departamento": "TOC Bombeiro ",
+    "equipamento": "monitor",
+    "marca": "LG",
+    "modelo": "Flatron E1641",
+    "dispositivo": "SM-A156M",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "808853",
+    "data": "16\/04\/2025 14:38:57",
+    "ordem": 11,
+    "departamento": "Bombeiro ",
     "equipamento": "monitor",
     "marca": "LG",
     "modelo": "Flatron E1641",
