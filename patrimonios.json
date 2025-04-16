@@ -350,5 +350,27 @@
     "modelo": "D1960wA",
     "dispositivo": "2201117SG",
     "ativo": "Ativo"
+  },
+  {
+    "codigo": "078228",
+    "data": "16\/04\/2025 15:11:35",
+    "ordem": 1,
+    "departamento": "Professores Provas",
+    "equipamento": "Monitor ",
+    "marca": "AOC",
+    "modelo": "1619Swa",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "508078",
+    "data": "16\/04\/2025 15:16:01",
+    "ordem": 1,
+    "departamento": "Coordenação Recepção ",
+    "equipamento": "Monitor ",
+    "marca": "LG",
+    "modelo": "W1643C",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
   }
 ]
