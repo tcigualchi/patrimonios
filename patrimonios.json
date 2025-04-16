@@ -31,5 +31,27 @@
     "modelo": "e",
     "dispositivo": "moto g71 5G",
     "ativo": "Ativo"
+  },
+  {
+    "codigo": "9491219640490",
+    "data": "16\/04\/2025 02:51:15",
+    "ordem": 1,
+    "departamento": "1",
+    "equipamento": "2",
+    "marca": "3",
+    "modelo": "4",
+    "dispositivo": "moto g71 5G",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "07901014",
+    "data": "16\/04\/2025 02:54:33",
+    "ordem": 1,
+    "departamento": "1",
+    "equipamento": "qa",
+    "marca": "z",
+    "modelo": "x",
+    "dispositivo": "moto g71 5G",
+    "ativo": "Ativo"
   }
 ]
