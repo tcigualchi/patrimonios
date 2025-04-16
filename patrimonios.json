@@ -1,24 +1,24 @@
 [
   {
-    "codigo": "01166841",
-    "data": "16\/04\/2025 13:44:29",
+    "codigo": "820236",
+    "data": "16\/04\/2025 13:58:21",
     "ordem": 1,
-    "departamento": "Sala Professores ",
+    "departamento": "Professores Recepção ",
     "equipamento": "Monitor ",
-    "marca": "LG ",
-    "modelo": "19EB13",
+    "marca": "AOC",
+    "modelo": "F19L",
     "dispositivo": "2201117SG",
     "ativo": "Ativo"
   },
   {
-    "codigo": "01204046",
-    "data": "16\/04\/2025 13:46:32",
-    "ordem": 2,
-    "departamento": "Informática ",
-    "equipamento": "Monitor ",
-    "marca": "LG",
-    "modelo": "Bitelo ",
-    "dispositivo": "2201117SG",
+    "codigo": "01150220",
+    "data": "16\/04\/2025 13:58:33",
+    "ordem": 1,
+    "departamento": "Sala de Acordo 03",
+    "equipamento": "Monitor",
+    "marca": "Samsung ",
+    "modelo": "S19C301F",
+    "dispositivo": "moto g71 5G",
     "ativo": "Ativo"
   }
 ]
