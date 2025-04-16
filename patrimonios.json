@@ -9,5 +9,16 @@
     "modelo": "1",
     "dispositivo": "moto g71 5G",
     "ativo": "Ativo"
+  },
+  {
+    "codigo": "01170581",
+    "data": "16\/04\/2025 07:43:39",
+    "ordem": 1,
+    "departamento": "informática ",
+    "equipamento": "monitor lcd",
+    "marca": "lg",
+    "modelo": "20w3",
+    "dispositivo": "moto g71 5G",
+    "ativo": "Ativo"
   }
 ]
