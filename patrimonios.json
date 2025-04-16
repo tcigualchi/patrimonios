@@ -493,5 +493,38 @@
     "modelo": "S19E310",
     "dispositivo": "2201117SG",
     "ativo": "Ativo"
+  },
+  {
+    "codigo": "01167845",
+    "data": "16\/04\/2025 19:58:53",
+    "ordem": 5,
+    "departamento": "Secretaria",
+    "equipamento": "Monitor",
+    "marca": "AOC",
+    "modelo": "E970Sw",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "01288718",
+    "data": "16\/04\/2025 20:02:03",
+    "ordem": 1,
+    "departamento": "Secretaria",
+    "equipamento": "Monitor",
+    "marca": "Samsung",
+    "modelo": "S19E310",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "Y29JHXHG405501Z",
+    "data": "16\/04\/2025 20:05:31",
+    "ordem": 1,
+    "departamento": "Secretaria",
+    "equipamento": "Monitor",
+    "marca": "Samsung",
+    "modelo": "S19E310",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
   }
 ]
