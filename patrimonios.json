@@ -471,5 +471,16 @@
     "modelo": "S19L",
     "dispositivo": "moto g71 5G",
     "ativo": "Ativo"
+  },
+  {
+    "codigo": "01141723",
+    "data": "16\/04\/2025 19:55:47",
+    "ordem": 1,
+    "departamento": "Secretaria",
+    "equipamento": "Monitor ",
+    "marca": "Samsung ",
+    "modelo": "S19E310",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
   }
 ]
