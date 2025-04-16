@@ -193,15 +193,17 @@
             margin-bottom: var(--space-sm);
             align-items: flex-start;
         }
+
         /* Estilos para os novos elementos */
         .patrimonio-departamento {
-            background: #053253;
+            background: rgba(255, 255, 255, 0.2);
             padding: 4px 10px;
             border-radius: 12px;
             font-size: 0.85em;
             display: inline-flex;
             align-items: center;
             gap: 5px;
+            backdrop-filter: blur(5px);
         }
         
         .info-group {
@@ -226,19 +228,6 @@
             text-align: center;
             color: #666;
         }
-        
-        /* Melhorias visuais */
-        .patrimonio-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-        
-        .patrimonio-codigo {
-            font-weight: 600;
-            font-size: 1.1em;
-        }
 
         .detalhe-label {
             font-weight: 600;
@@ -253,26 +242,67 @@
             font-size: 0.9375rem;
         }
 
-        /* Status e tags */
-        .patrimonio-status {
-            display: inline-block;
-            padding: var(--space-xs) var(--space-sm);
-            font-size: 0.75rem;
+        /* Status e tags - NOVO ESTILO COM SPINNER */
+        .status-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        
+        .status-label {
+            font-size: 0.8rem;
             font-weight: 600;
-            border-radius: var(--radius-full);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-top: var(--space-sm);
         }
-
-        .status-active {
-            background-color: rgba(76, 201, 240, 0.1);
-            color: var(--success);
+        
+        .status-select {
+            position: relative;
+            display: inline-block;
+            min-width: 120px;
         }
-
-        .status-inactive {
-            background-color: rgba(247, 37, 133, 0.1);
-            color: var(--error);
+        
+        .status-select select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            width: 100%;
+            padding: 6px 30px 6px 10px;
+            border-radius: 20px;
+            border: none;
+            background-color: var(--gray-100);
+            color: var(--gray-800);
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+        
+        .status-select::after {
+            content: "▼";
+            font-size: 0.6rem;
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            pointer-events: none;
+            color: var(--gray-500);
+        }
+        
+        /* Cores para cada status */
+        .status-ativo {
+            background-color: rgba(76, 201, 240, 0.2);
+            color: #4cc9f0;
+        }
+        
+        .status-manutencao {
+            background-color: rgba(248, 150, 30, 0.2);
+            color: #f8961e;
+        }
+        
+        .status-desativado {
+            background-color: rgba(247, 37, 133, 0.2);
+            color: #f72585;
         }
 
         /* Loading state moderno */
@@ -551,75 +581,127 @@
                 refreshBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Atualizar';
             }
         }
-function renderData(items) {
-    if (!items || items.length === 0) {
-        dataContainer.innerHTML = `
-            <div class="empty-state">
-                <div class="empty-icon">
-                    <i class="fas fa-box-open"></i>
-                </div>
-                <h3 class="empty-text">Nenhum patrimônio registrado</h3>
-                <p>Adicione novos patrimônios para começar o monitoramento</p>
-            </div>
-        `;
-        return;
-    }
 
-    dataContainer.innerHTML = items.map(item => `
-        <div class="patrimonio-item fade-in">
-            <div class="patrimonio-header">
-                <div class="patrimonio-codigo">
-                    <i class="fas fa-barcode"></i> ${item.codigo}
+        function renderData(items) {
+            if (!items || items.length === 0) {
+                dataContainer.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">
+                            <i class="fas fa-box-open"></i>
+                        </div>
+                        <h3 class="empty-text">Nenhum patrimônio registrado</h3>
+                        <p>Adicione novos patrimônios para começar o monitoramento</p>
+                    </div>
+                `;
+                return;
+            }
+
+            dataContainer.innerHTML = items.map(item => `
+                <div class="patrimonio-item fade-in">
+                    <div class="patrimonio-header">
+                        <div class="patrimonio-codigo">
+                            <i class="fas fa-barcode"></i> ${item.codigo}
+                        </div>
+                        ${item.departamento ? `
+                        <div class="patrimonio-departamento">
+                            <i class="fas fa-building"></i> ${item.departamento}
+                        </div>` : ''}
+                    </div>
+                    
+                    <div class="patrimonio-body">
+                        <!-- Bloco de Informações Básicas -->
+                        <div class="info-group">
+                            <div class="patrimonio-detalhe">
+                                <span class="detalhe-label"><i class="fas fa-calendar-alt"></i> Data:</span>
+                                <span class="detalhe-valor">${item.data}</span>
+                            </div>
+                            <div class="patrimonio-detalhe">
+                                <span class="detalhe-label"><i class="fas fa-mobile-alt"></i> Dispositivo:</span>
+                                <span class="detalhe-valor">${item.dispositivo}</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Bloco de Detalhes do Equipamento -->
+                        <div class="info-group">
+                            <h4 class="info-group-title"><i class="fas fa-laptop"></i> Especificações</h4>
+                            ${item.equipamento ? `
+                            <div class="patrimonio-detalhe">
+                                <span class="detalhe-label">Equipamento:</span>
+                                <span class="detalhe-valor">${item.equipamento}</span>
+                            </div>` : ''}
+                            
+                            ${item.marca ? `
+                            <div class="patrimonio-detalhe">
+                                <span class="detalhe-label">Marca:</span>
+                                <span class="detalhe-valor">${item.marca}</span>
+                            </div>` : ''}
+                            
+                            ${item.modelo ? `
+                            <div class="patrimonio-detalhe">
+                                <span class="detalhe-label">Modelo:</span>
+                                <span class="detalhe-valor">${item.modelo}</span>
+                            </div>` : ''}
+                        </div>
+                        
+                        <!-- Status com Spinner -->
+                        <div class="status-container">
+                            <span class="status-label">Status:</span>
+                            <div class="status-select">
+                                <select class="status-selector" data-codigo="${item.codigo}">
+                                    <option value="Ativo" ${item.ativo === 'Ativo' ? 'selected' : ''} class="status-ativo">Ativo</option>
+                                    <option value="Manutenção" ${item.ativo === 'Manutenção' ? 'selected' : ''} class="status-manutencao">Manutenção</option>
+                                    <option value="Desativado" ${item.ativo === 'Desativado' ? 'selected' : ''} class="status-desativado">Desativado</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                ${item.departamento ? `
-                <div class="patrimonio-departamento">
-                    <i class="fas fa-building"></i> ${item.departamento}
-                </div>` : ''}
-            </div>
+            `).join('');
+
+            // Adiciona eventos aos selects de status
+            document.querySelectorAll('.status-selector').forEach(select => {
+                select.addEventListener('change', function() {
+                    updateStatus(this.dataset.codigo, this.value);
+                });
+                
+                // Aplica a classe de cor baseada no valor selecionado
+                applyStatusColor(select);
+                
+                // Atualiza a cor quando muda
+                select.addEventListener('change', function() {
+                    applyStatusColor(this);
+                });
+            });
+        }
+
+        function applyStatusColor(selectElement) {
+            // Remove todas as classes de cor primeiro
+            selectElement.classList.remove('status-ativo', 'status-manutencao', 'status-desativado');
             
-            <div class="patrimonio-body">
-                <!-- Bloco de Informações Básicas -->
-                <div class="info-group">
-                    <div class="patrimonio-detalhe">
-                        <span class="detalhe-label"><i class="fas fa-calendar-alt"></i> Data:</span>
-                        <span class="detalhe-valor">${item.data}</span>
-                    </div>
-                    <div class="patrimonio-detalhe">
-                        <span class="detalhe-label"><i class="fas fa-mobile-alt"></i> Dispositivo:</span>
-                        <span class="detalhe-valor">${item.dispositivo}</span>
-                    </div>
-                </div>
-                
-                <!-- Bloco de Detalhes do Equipamento -->
-                <div class="info-group">
-                    <h4 class="info-group-title"><i class="fas fa-laptop"></i> Especificações</h4>
-                    ${item.equipamento ? `
-                    <div class="patrimonio-detalhe">
-                        <span class="detalhe-label">Equipamento:</span>
-                        <span class="detalhe-valor">${item.equipamento}</span>
-                    </div>` : ''}
-                    
-                    ${item.marca ? `
-                    <div class="patrimonio-detalhe">
-                        <span class="detalhe-label">Marca:</span>
-                        <span class="detalhe-valor">${item.marca}</span>
-                    </div>` : ''}
-                    
-                    ${item.modelo ? `
-                    <div class="patrimonio-detalhe">
-                        <span class="detalhe-label">Modelo:</span>
-                        <span class="detalhe-valor">${item.modelo}</span>
-                    </div>` : ''}
-                </div>
-                
-                <!-- Status -->
-                <div class="patrimonio-status status-active">
-                    <i class="fas fa-circle"></i> Ativo
-                </div>
-            </div>
-        </div>
-    `).join('');
-}
+            // Adiciona a classe apropriada
+            if (selectElement.value === 'Ativo') {
+                selectElement.classList.add('status-ativo');
+            } else if (selectElement.value === 'Manutenção') {
+                selectElement.classList.add('status-manutencao');
+            } else if (selectElement.value === 'Desativado') {
+                selectElement.classList.add('status-desativado');
+            }
+        }
+
+        function updateStatus(codigo, novoStatus) {
+            console.log(`Atualizando status do patrimônio ${codigo} para ${novoStatus}`);
+            // Aqui você pode adicionar lógica para atualizar no servidor se necessário
+            // Por enquanto só mostra um alerta
+            Toastify({
+                text: `Status de ${codigo} atualizado para ${novoStatus}`,
+                duration: 3000,
+                close: true,
+                gravity: "top",
+                position: "right",
+                backgroundColor: novoStatus === 'Ativo' ? "#4cc9f0" : 
+                                novoStatus === 'Manutenção' ? "#f8961e" : "#f72585",
+            }).showToast();
+        }
 
         function showError(error) {
             dataContainer.innerHTML = `
@@ -692,6 +774,29 @@ function renderData(items) {
                 refreshBtn.querySelector('i').style.transform = 'rotate(0)';
             });
         });
+
+        // Função para mostrar notificações (adicione o Toastify CSS no head se quiser usar)
+        function showToast(message, type = 'info') {
+            const colors = {
+                info: '#4361ee',
+                success: '#4cc9f0',
+                warning: '#f8961e',
+                error: '#f72585'
+            };
+            
+            Toastify({
+                text: message,
+                duration: 3000,
+                close: true,
+                gravity: "top",
+                position: "right",
+                backgroundColor: colors[type] || colors.info,
+            }).showToast();
+        }
     </script>
+    
+    <!-- Adicione isso no head se quiser usar Toastify para notificações -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </body>
 </html>
