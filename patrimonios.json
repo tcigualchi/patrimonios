@@ -1,24 +1,24 @@
 [
   {
-    "codigo": "070847022206",
-    "data": "16\/04\/2025 09:45:13",
+    "codigo": "01166841",
+    "data": "16\/04\/2025 13:44:29",
     "ordem": 1,
-    "departamento": "veterinária ",
-    "equipamento": "monitor",
-    "marca": "Dell",
-    "modelo": "Dell sgt5",
-    "dispositivo": "moto g71 5G",
+    "departamento": "Sala Professores ",
+    "equipamento": "Monitor ",
+    "marca": "LG ",
+    "modelo": "19EB13",
+    "dispositivo": "2201117SG",
     "ativo": "Ativo"
   },
   {
-    "codigo": "01162243",
-    "data": "16\/04\/2025 13:33:08",
-    "ordem": 1,
+    "codigo": "01204046",
+    "data": "16\/04\/2025 13:46:32",
+    "ordem": 2,
     "departamento": "Informática ",
-    "equipamento": "Monitor",
-    "marca": "Philips ",
-    "modelo": "193V5L",
-    "dispositivo": "moto g71 5G",
+    "equipamento": "Monitor ",
+    "marca": "LG",
+    "modelo": "Bitelo ",
+    "dispositivo": "2201117SG",
     "ativo": "Ativo"
   }
 ]
