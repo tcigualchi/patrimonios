@@ -768,5 +768,27 @@
     "modelo": "Flatron W1643C",
     "dispositivo": "SM-A156M",
     "ativo": "Ativo"
+  },
+  {
+    "codigo": "806776",
+    "data": "17\/04\/2025 14:49:44",
+    "ordem": 1,
+    "departamento": "Coord cienc contabeis",
+    "equipamento": "monitor ",
+    "marca": "BenQ",
+    "modelo": "G925HDA",
+    "dispositivo": "SM-A156M",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "808868",
+    "data": "17\/04\/2025 14:51:10",
+    "ordem": 2,
+    "departamento": "coord administração ",
+    "equipamento": "monitor",
+    "marca": "LG",
+    "modelo": "Flatron E1641",
+    "dispositivo": "SM-A156M",
+    "ativo": "Ativo"
   }
 ]
