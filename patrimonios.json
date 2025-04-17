@@ -735,5 +735,38 @@
     "modelo": "Flatron W1643c",
     "dispositivo": "SM-A156M",
     "ativo": "Ativo"
+  },
+  {
+    "codigo": "01167843",
+    "data": "17\/04\/2025 14:40:53",
+    "ordem": 1,
+    "departamento": "COORDENAÇÃO ",
+    "equipamento": "monitor",
+    "marca": "LG",
+    "modelo": "Flatron 20m37aa - b",
+    "dispositivo": "SM-A156M",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "508071",
+    "data": "17\/04\/2025 14:43:14",
+    "ordem": 1,
+    "departamento": "coord nutri matut",
+    "equipamento": "monitor",
+    "marca": "LG",
+    "modelo": "Flatron W1643C",
+    "dispositivo": "SM-A156M",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "508116",
+    "data": "17\/04\/2025 14:44:31",
+    "ordem": 2,
+    "departamento": "coord eng eletrica",
+    "equipamento": "monitor ",
+    "marca": "LG",
+    "modelo": "Flatron W1643C",
+    "dispositivo": "SM-A156M",
+    "ativo": "Ativo"
   }
 ]
