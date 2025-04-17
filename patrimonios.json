@@ -790,5 +790,27 @@
     "modelo": "Flatron E1641",
     "dispositivo": "SM-A156M",
     "ativo": "Ativo"
+  },
+  {
+    "codigo": "479299",
+    "data": "17\/04\/2025 14:55:46",
+    "ordem": 1,
+    "departamento": "coord pedagogia",
+    "equipamento": "monitor",
+    "marca": "lenovo",
+    "modelo": "D1960wA",
+    "dispositivo": "SM-A156M",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "486583",
+    "data": "17\/04\/2025 14:57:08",
+    "ordem": 2,
+    "departamento": "coord vet",
+    "equipamento": "monitor",
+    "marca": "AOC",
+    "modelo": "1619Swa",
+    "dispositivo": "SM-A156M",
+    "ativo": "Ativo"
   }
 ]
