@@ -526,5 +526,148 @@
     "modelo": "S19E310",
     "dispositivo": "2201117SG",
     "ativo": "Ativo"
+  },
+  {
+    "codigo": "01145670",
+    "data": "16\/04\/2025 21:04:47",
+    "ordem": 1,
+    "departamento": "EAD",
+    "equipamento": "Monitor",
+    "marca": "HP",
+    "modelo": "V198bz",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "01145671",
+    "data": "16\/04\/2025 21:06:21",
+    "ordem": 3,
+    "departamento": "EAD",
+    "equipamento": "Monitor",
+    "marca": "HP",
+    "modelo": "19M37D",
+    "dispositivo": "moto g71 5G",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "01145667",
+    "data": "16\/04\/2025 21:06:27",
+    "ordem": 3,
+    "departamento": "EAD",
+    "equipamento": "Monitor",
+    "marca": "HP",
+    "modelo": "V198bz",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "1145673",
+    "data": "16\/04\/2025 21:06:27",
+    "ordem": 3,
+    "departamento": "EAD",
+    "equipamento": "Monitor",
+    "marca": "HP",
+    "modelo": "19M37D",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "1150293",
+    "data": "16\/04\/2025 21:06:27",
+    "ordem": 3,
+    "departamento": "EAD",
+    "equipamento": "Monitor",
+    "marca": "LG",
+    "modelo": "LG FLATRON 20EN33SS",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "1053965",
+    "data": "16\/04\/2025 21:06:27",
+    "ordem": 3,
+    "departamento": "EAD",
+    "equipamento": "Monitor",
+    "marca": "LG",
+    "modelo": "LG FLATRON 20EN33SS",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "01150292",
+    "data": "16\/04\/2025 21:07:43",
+    "ordem": 5,
+    "departamento": "EAD",
+    "equipamento": "Monitor",
+    "marca": "LG",
+    "modelo": "LG FLATRON 20EN33SS",
+    "dispositivo": "moto g71 5G",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "1053953",
+    "data": "16\/04\/2025 21:07:43",
+    "ordem": 5,
+    "departamento": "EAD",
+    "equipamento": "Monitor",
+    "marca": "LG",
+    "modelo": "LG FLATRON 20EN33SS",
+    "dispositivo": "moto g71 5G",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "1145675",
+    "data": "16\/04\/2025 21:07:43",
+    "ordem": 5,
+    "departamento": "EAD",
+    "equipamento": "Monitor",
+    "marca": "HP",
+    "modelo": "V198BZ",
+    "dispositivo": "moto g71 5G",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "1145672",
+    "data": "16\/04\/2025 21:07:43",
+    "ordem": 5,
+    "departamento": "EAD",
+    "equipamento": "Monitor",
+    "marca": "HP",
+    "modelo": "V198BZ",
+    "dispositivo": "moto g71 5G",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "501690",
+    "data": "16\/04\/2025 21:10:42",
+    "ordem": 1,
+    "departamento": "CPA",
+    "equipamento": "Monitor",
+    "marca": "AOC",
+    "modelo": "1619Swa",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "01118291",
+    "data": "16\/04\/2025 21:13:06",
+    "ordem": 1,
+    "departamento": "CPA",
+    "equipamento": "Monitor",
+    "marca": "AOC",
+    "modelo": "E970Swl",
+    "dispositivo": "moto g71 5G",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "508082",
+    "data": "16\/04\/2025 21:15:05",
+    "ordem": 2,
+    "departamento": "CPA",
+    "equipamento": "Monitor",
+    "marca": "LG",
+    "modelo": "LG Flatron W1646C",
+    "dispositivo": "moto g71 5G",
+    "ativo": "Ativo"
   }
 ]
