@@ -812,5 +812,38 @@
     "modelo": "1619Swa",
     "dispositivo": "SM-A156M",
     "ativo": "Ativo"
+  },
+  {
+    "codigo": "01162270",
+    "data": "17\/04\/2025 14:58:49",
+    "ordem": 3,
+    "departamento": "coord Letras",
+    "equipamento": "monitor",
+    "marca": "Philips",
+    "modelo": "193V",
+    "dispositivo": "SM-A156M",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "269251",
+    "data": "17\/04\/2025 15:00:00",
+    "ordem": 4,
+    "departamento": "coord cienc Biologicas",
+    "equipamento": "monitor ",
+    "marca": "Bematech",
+    "modelo": "MT5BNP",
+    "dispositivo": "SM-A156M",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "01110444",
+    "data": "17\/04\/2025 15:02:46",
+    "ordem": 1,
+    "departamento": "coord fisioterapia ",
+    "equipamento": "monitor",
+    "marca": "LG",
+    "modelo": "Flatron 19E813T -B",
+    "dispositivo": "SM-A156M",
+    "ativo": "Ativo"
   }
 ]
