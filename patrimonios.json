@@ -680,5 +680,38 @@
     "modelo": "DCR3000:1",
     "dispositivo": "SM-A156M",
     "ativo": "Ativo"
+  },
+  {
+    "codigo": "808854",
+    "data": "17\/04\/2025 13:20:54",
+    "ordem": 1,
+    "departamento": "EAJ",
+    "equipamento": "monitor",
+    "marca": "LG",
+    "modelo": "Flatron E1641",
+    "dispositivo": "SM-A156M",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "808862",
+    "data": "17\/04\/2025 13:22:44",
+    "ordem": 3,
+    "departamento": "EAJ",
+    "equipamento": "monitor",
+    "marca": "LG",
+    "modelo": "Flatron E1641",
+    "dispositivo": "SM-A156M",
+    "ativo": "Ativo"
+  },
+  {
+    "codigo": "808855",
+    "data": "17\/04\/2025 13:23:49",
+    "ordem": 5,
+    "departamento": "EAJ",
+    "equipamento": "monitor",
+    "marca": "LG",
+    "modelo": "Flatron E1641",
+    "dispositivo": "SM-A156M",
+    "ativo": "Ativo"
   }
 ]
