@@ -724,5 +724,16 @@
     "modelo": "Zé da nanga",
     "dispositivo": "2201117SG",
     "ativo": "Ativo"
+  },
+  {
+    "codigo": "508124",
+    "data": "17\/04\/2025 14:37:36",
+    "ordem": 1,
+    "departamento": "Coordenação ",
+    "equipamento": "Monitor ",
+    "marca": "LG",
+    "modelo": "Flatron W1643c",
+    "dispositivo": "SM-A156M",
+    "ativo": "Ativo"
   }
 ]
