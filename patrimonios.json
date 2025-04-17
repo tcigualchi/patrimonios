@@ -713,5 +713,16 @@
     "modelo": "Flatron E1641",
     "dispositivo": "SM-A156M",
     "ativo": "Ativo"
+  },
+  {
+    "codigo": "01204046",
+    "data": "17\/04\/2025 14:09:19",
+    "ordem": 1,
+    "departamento": "coordenação ",
+    "equipamento": "monitor ",
+    "marca": "Samsung ",
+    "modelo": "Zé da nanga",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
   }
 ]
