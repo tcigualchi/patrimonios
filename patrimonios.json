@@ -846,4 +846,213 @@
     "dispositivo": "SM-A156M",
     "ativo": "Ativo"
   }
+  {
+    "codigo": "479312",
+    "data": "16\/04\/2025 13:59:57",
+    "ordem": 2,
+    "departamento": "Coord Odontologia",
+    "equipamento": "Monitor",
+    "marca": "AOC",
+    "modelo": "1619SWA",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
+},
+{
+    "codigo": "486585",
+    "data": "16\/04\/2025 13:59:57",
+    "ordem": 2,
+    "departamento": "Coord Propag-Market",
+    "equipamento": "Monitor",
+    "marca": "AOC",
+    "modelo": "1619SWA",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
+},
+{
+    "codigo": "820223",
+    "data": "16\/04\/2025 13:59:57",
+    "ordem": 2,
+    "departamento": "Coord Design Gráfico",
+    "equipamento": "Monitor",
+    "marca": "AOC",
+    "modelo": "F19L",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
+},
+{
+    "codigo": "01144469",
+    "data": "16\/04\/2025 13:59:57",
+    "ordem": 2,
+    "departamento": "Coord Ciência da Computação",
+    "equipamento": "Monitor",
+    "marca": "Samsung",
+    "modelo": "S19E310HY",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
+},
+{
+    "codigo": "1176693",
+    "data": "16\/04\/2025 13:59:57",
+    "ordem": 2,
+    "departamento": "Coord Ed.Fisica",
+    "equipamento": "Monitor",
+    "marca": "Samsung",
+    "modelo": "BI630",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
+},
+{
+    "codigo": "471855",
+    "data": "16\/04\/2025 13:59:57",
+    "ordem": 2,
+    "departamento": "Coord Psicologia",
+    "equipamento": "Monitor",
+    "marca": "Braview",
+    "modelo": "5002LH",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
+},
+{
+    "codigo": "486584",
+    "data": "16\/04\/2025 13:59:57",
+    "ordem": 2,
+    "departamento": "Coord Enfermagem",
+    "equipamento": "Monitor",
+    "marca": "AOC",
+    "modelo": "1619Swa",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
+},
+{
+    "codigo": "162308",
+    "data": "16\/04\/2025 13:59:57",
+    "ordem": 2,
+    "departamento": "Coord Eng. Civil",
+    "equipamento": "Monitor",
+    "marca": "L155250",
+    "modelo": "L155250",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
+},
+{
+    "codigo": "508119",
+    "data": "16\/04\/2025 13:59:57",
+    "ordem": 2,
+    "departamento": "Coord Ciências Economicas",
+    "equipamento": "Monitor",
+    "marca": "LG",
+    "modelo": "L155250",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
+},
+{
+    "codigo": "486576",
+    "data": "16\/04\/2025 13:59:57",
+    "ordem": 2,
+    "departamento": "Coord Eng. Básica",
+    "equipamento": "Monitor",
+    "marca": "AOC",
+    "modelo": "1619Swa",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
+},
+{
+    "codigo": "471870",
+    "data": "16\/04\/2025 13:59:57",
+    "ordem": 2,
+    "departamento": "Coord Radiologia",
+    "equipamento": "Monitor",
+    "marca": "Braview",
+    "modelo": "5002LH",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
+},
+{
+    "codigo": "01180231",
+    "data": "16\/04\/2025 13:59:57",
+    "ordem": 2,
+    "departamento": "Coord Eng. Mecanica",
+    "equipamento": "Monitor",
+    "marca": "AOC",
+    "modelo": "F19L",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
+},
+{
+    "codigo": "806802",
+    "data": "16\/04\/2025 13:59:57",
+    "ordem": 2,
+    "departamento": "Coord Direito",
+    "equipamento": "Monitor",
+    "marca": "Benq",
+    "modelo": "G92HDA",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
+},
+{
+    "codigo": "1170576",
+    "data": "16\/04\/2025 13:59:57",
+    "ordem": 2,
+    "departamento": "Coord ICS",
+    "equipamento": "Monitor",
+    "marca": "LG",
+    "modelo": "20M37AA",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
+},
+{
+    "codigo": "806789",
+    "data": "16\/04\/2025 13:59:57",
+    "ordem": 2,
+    "departamento": "Coord Icet",
+    "equipamento": "Monitor",
+    "marca": "BENQ",
+    "modelo": "G925HDA",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
+},
+{
+    "codigo": "806809",
+    "data": "16\/04\/2025 13:59:57",
+    "ordem": 2,
+    "departamento": "Coord ICSC",
+    "equipamento": "Monitor",
+    "marca": "BENQ",
+    "modelo": "G925HDA",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
+},
+{
+    "codigo": "806791",
+    "data": "16\/04\/2025 13:59:57",
+    "ordem": 2,
+    "departamento": "Coord ICH",
+    "equipamento": "Monitor",
+    "marca": "BENQ",
+    "modelo": "G925HDA",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
+},
+{
+    "codigo": "1118290",
+    "data": "16\/04\/2025 13:59:57",
+    "ordem": 2,
+    "departamento": "Coord Estetica",
+    "equipamento": "Monitor",
+    "marca": "AOC",
+    "modelo": "E97SSWNL",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
+},
+{
+    "codigo": "267258",
+    "data": "16\/04\/2025 13:59:57",
+    "ordem": 2,
+    "departamento": "Coord Jrl, Publi, Prop",
+    "equipamento": "Monitor",
+    "marca": "AOC",
+    "modelo": "1619SWA",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo"
+}
 ]
