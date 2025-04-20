@@ -7,8 +7,6 @@
     --error: #f72585;
     --warning: #f8961e;
     --info: #7209b7;
-    
-    /* Tons de cinza sofisticados */
     --gray-50: #f8fafc;
     --gray-100: #f1f5f9;
     --gray-200: #e2e8f0;
@@ -19,11 +17,8 @@
     --gray-700: #334155;
     --gray-800: #1e293b;
     --gray-900: #0f172a;
-    
     --white: #ffffff;
     --black: #000000;
-    
-    /* Sombras sutis */
     --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -31,8 +26,6 @@
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
     --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
-    
-    /* Bordas */
     --radius-sm: 0.25rem;
     --radius-md: 0.375rem;
     --radius-lg: 0.5rem;
@@ -40,14 +33,10 @@
     --radius-2xl: 1rem;
     --radius-3xl: 1.5rem;
     --radius-full: 9999px;
-    
-    /* Transições suaves */
     --transition-colors: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     --transition-transform: transform 0.15s ease-in-out;
     --transition-opacity: opacity 0.15s ease-in-out;
     --transition-all: all 0.15s ease-in-out;
-    
-    /* Espaçamentos */
     --space-xs: 0.25rem;
     --space-sm: 0.5rem;
     --space-md: 1rem;
@@ -89,7 +78,6 @@ body {
     overflow: hidden;
 }
 
-/* Header elegante com gradiente */
 .header {
     background: linear-gradient(135deg, var(--primary), var(--primary-dark));
     color: var(--white);
@@ -127,7 +115,6 @@ body {
     z-index: 1;
 }
 
-/* Controles de filtro */
 .filters-container {
     background-color: var(--gray-100);
     padding: var(--space-md);
@@ -172,12 +159,10 @@ body {
     box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.2);
 }
 
-/* Conteúdo principal */
 .content {
     padding: var(--space-xl);
 }
 
-/* Card de patrimônio moderno */
 .patrimonio-list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -229,7 +214,6 @@ body {
     align-items: flex-start;
 }
 
-/* Estilos para os novos elementos */
 .patrimonio-departamento {
     background: rgba(255, 255, 255, 0.2);
     padding: 4px 10px;
@@ -243,7 +227,7 @@ body {
 }
 
 .info-group {
-    background: #f8f9fa;
+    background: var(--gray-50);
     padding: 12px;
     border-radius: 8px;
     margin-bottom: 12px;
@@ -251,18 +235,12 @@ body {
 
 .info-group-title {
     font-size: 0.95em;
-    color: #555;
+    color: var(--gray-600);
     margin-top: 0;
     margin-bottom: 10px;
     display: flex;
     align-items: center;
     gap: 8px;
-}
-
-.detalhe-label i {
-    width: 20px;
-    text-align: center;
-    color: #666;
 }
 
 .detalhe-label {
@@ -278,7 +256,6 @@ body {
     font-size: 0.9375rem;
 }
 
-/* Status e tags - NOVO ESTILO COM SPINNER */
 .status-container {
     display: flex;
     align-items: center;
@@ -325,7 +302,6 @@ body {
     color: var(--gray-500);
 }
 
-/* Cores para cada status */
 .status-ativo {
     background-color: rgba(76, 201, 240, 0.2);
     color: #4cc9f0;
@@ -341,7 +317,6 @@ body {
     color: #f72585;
 }
 
-/* Loading state moderno */
 .loading-state {
     display: flex;
     flex-direction: column;
@@ -366,7 +341,6 @@ body {
     font-size: 0.9375rem;
 }
 
-/* Empty state */
 .empty-state {
     display: flex;
     flex-direction: column;
@@ -388,7 +362,6 @@ body {
     margin-bottom: var(--space-md);
 }
 
-/* Error state */
 .error-state {
     background-color: rgba(247, 37, 133, 0.05);
     border: 1px solid rgba(247, 37, 133, 0.2);
@@ -417,7 +390,6 @@ body {
     font-size: 0.9375rem;
 }
 
-/* Botão moderno */
 .btn {
     display: inline-flex;
     align-items: center;
@@ -472,7 +444,6 @@ body {
     margin-right: var(--space-xs);
 }
 
-/* Footer e timestamp */
 .footer {
     border-top: 1px solid var(--gray-200);
     padding: var(--space-md) var(--space-xl);
@@ -507,7 +478,6 @@ body {
     font-size: 0.9em;
 }
 
-/* Animações */
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
@@ -518,7 +488,6 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Contador de itens */
 .counter-badge {
     background-color: var(--primary);
     color: white;
@@ -529,7 +498,6 @@ body {
     margin-left: 6px;
 }
 
-/* Modal de exportação */
 .modal {
     display: none;
     position: fixed;
@@ -592,7 +560,6 @@ body {
     gap: var(--space-md);
 }
 
-/* Preview do CSV */
 .csv-preview {
     font-family: 'Courier New', Courier, monospace;
     background-color: var(--gray-50);
@@ -638,47 +605,42 @@ body {
     font-size: 0.875rem;
 }
 
-/* Responsividade */
+.equipamento-icon {
+    margin-right: 8px;
+    font-size: 1.2em;
+}
+
 @media (max-width: 768px) {
     body {
         padding: var(--space-md);
     }
-    
     .header {
         padding: var(--space-lg) var(--space-md);
     }
-    
     .header h1 {
         font-size: 1.75rem;
     }
-    
     .content {
         padding: var(--space-lg) var(--space-md);
     }
-    
     .patrimonio-list {
         grid-template-columns: 1fr;
     }
-    
     .footer {
         flex-direction: column;
         gap: var(--space-sm);
         text-align: center;
     }
-    
     .filters-container {
         flex-direction: column;
         align-items: stretch;
     }
-    
     .filter-group {
         width: 100%;
     }
-    
     .filter-select {
         width: 100%;
     }
-
     .csv-options {
         grid-template-columns: 1fr;
     }
@@ -688,22 +650,18 @@ body {
     .header h1 {
         font-size: 1.5rem;
     }
-    
     .patrimonio-detalhe {
         flex-direction: column;
         gap: var(--space-xs);
     }
-    
     .detalhe-label {
         min-width: auto;
     }
-
     .modal-content {
         width: 95%;
     }
 }
 
-/* Efeitos de entrada */
 .fade-in {
     animation: fadeIn 0.3s ease-out forwards;
 }
