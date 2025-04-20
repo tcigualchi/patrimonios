@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" href="ico.ico" type="image/x-icon">
-    <link rel="stylesheet" href="assets/style.css">
 
 </head>
 <body>
@@ -16,7 +15,7 @@
             <h1><i class="fas fa-boxes"></i> Monitor de Patrimônios</h1>
             <p>Acompanhe todos os patrimônios registrados em tempo real</p>
         </header>
-        
+
         <div class="filters-container">
             <div class="filter-group">
                 <label for="departamento-filter" class="filter-label">
@@ -26,7 +25,7 @@
                     <option value="">Todos departamentos</option>
                 </select>
             </div>
-            
+
             <div class="filter-group">
                 <label for="dispositivo-filter" class="filter-label">
                     <i class="fas fa-mobile-alt"></i> Dispositivo:
@@ -35,7 +34,7 @@
                     <option value="">Todos dispositivos</option>
                 </select>
             </div>
-            
+
             <div class="filter-group">
                 <label for="status-filter" class="filter-label">
                     <i class="fas fa-info-circle"></i> Status:
@@ -43,11 +42,11 @@
                 <select id="status-filter" class="filter-select">
                     <option value="">Todos status</option>
                     <option value="Ativo">Ativo</option>
-                    <option value="Manutenção">Manutenção</option>
+                    <option value="Manutencao">Manutencao</option>
                     <option value="Desativado">Desativado</option>
                 </select>
             </div>
-            
+
             <div style="display: flex; gap: var(--space-md); margin-left: auto;">
                 <button id="export-btn" class="btn btn-secondary">
                     <i class="fas fa-file-export"></i> Exportar
@@ -57,16 +56,16 @@
                 </button>
             </div>
         </div>
-        
+
         <main class="content">
             <div id="loading" class="loading-state">
                 <div class="loading-spinner"></div>
                 <p class="loading-text">Carregando dados dos patrimônios...</p>
             </div>
-            
+
             <div id="data-container" class="patrimonio-list"></div>
         </main>
-        
+
         <footer class="footer">
             <div id="last-update" class="timestamp"></div>
             <div>
@@ -90,8 +89,8 @@
                     <div class="csv-option-group">
                         <label class="csv-option-label">Formato:</label>
                         <select id="export-format" class="csv-option-select">
-                            <option value="csv">CSV (Excel)</option>
-                            <option value="csv-pt">CSV (Portugues, ponto-e-vírgula)</option>
+                            <option value="csv">Csv (Excel)</option>
+                            <option value="csv-pt">Csv (Portugues, ponto-e-virgula)</option>
                         </select>
                     </div>
                     <div class="csv-option-group">
@@ -102,7 +101,6 @@
                         </select>
                     </div>
                 </div>
-                
                 <h4 class="csv-preview-header">Pré-visualização:</h4>
                 <div id="csv-preview" class="csv-preview">Carregando pré-visualização...</div>
             </div>
@@ -119,111 +117,12 @@
         // Configurações do Gist
         const GIST_ID = "df6ceeb52f594b01a16495b214d93af0";
         const GIST_FILE = "patrimonios.json";
-        const GIST_URL = `https://gist.githubusercontent.com/tcigualchi/${GIST_ID}/raw/${GIST_FILE}`;
+        const GIST_URL = `https://gist.githubusercontent.com/teigualchi/${GIST_ID}/raw/${GIST_FILE}`;
         const REFRESH_INTERVAL = 300000; // 5 Minutos
 
-        // Elementos DOM
-        const loadingElement = document.getElementById('loading');
-        const dataContainer = document.getElementById('data-container');
-        const lastUpdateElement = document.getElementById('last-update');
-        const refreshBtn = document.getElementById('refresh-btn');
-        const departamentoFilter = document.getElementById('departamento-filter');
-        const dispositivoFilter = document.getElementById('dispositivo-filter');
-        const statusFilter = document.getElementById('status-filter');
-        const resetFiltersBtn = document.getElementById('reset-filters');
-        const itemCounter = document.getElementById('item-counter');
-        const exportBtn = document.getElementById('export-btn');
-        const exportModal = document.getElementById('export-modal');
-        const modalClose = document.querySelector('.modal-close');
-        const cancelExport = document.getElementById('cancel-export');
-        const confirmExport = document.getElementById('confirm-export');
-        const exportFormat = document.getElementById('export-format');
-        const exportContent = document.getElementById('export-content');
-        const csvPreview = document.getElementById('csv-preview');
+        // Restante do seu código JavaScript...
 
-        // Estado da aplicação
-        let isLoading = false;
-        let allPatrimonios = [];
-        let filteredPatrimonios = [];
-
-        // Função principal para carregar dados
-        async function loadData() {
-            if (isLoading) return;
-            
-            try {
-                isLoading = true;
-                showLoading();
-                refreshBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Atualizando...';
-                
-                const timestamp = new Date().getTime();
-                const response = await fetch(`${GIST_URL}?t=${timestamp}`);
-                
-                if (!response.ok) {
-                    throw new Error(`Erro ${response.status}: ${response.statusText}`);
-                }
-
-                const data = await response.json();
-                allPatrimonios = Array.isArray(data) ? data : [];
-                updateFiltersDropdowns();
-                applyFilters();
-                updateLastUpdate();
-                
-            } catch (error) {
-                showError(error);
-                console.error('Erro ao carregar dados:', error);
-            } finally {
-                isLoading = false;
-                hideLoading();
-                refreshBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Atualizar';
-            }
-        }
-
-        // Atualiza os dropdowns de filtro com valores únicos
-        function updateFiltersDropdowns() {
-            // Filtro por departamento
-            const departamentos = ['Todos departamentos', ...new Set(allPatrimonios.map(item => item.departamento).filter(Boolean))];
-            departamentoFilter.innerHTML = departamentos.map(depto => 
-                `<option value="${depto === 'Todos departamentos' ? '' : depto}">${depto}</option>`
-            ).join('');
-            
-            // Filtro por dispositivo
-            const dispositivos = ['Todos dispositivos', ...new Set(allPatrimonios.map(item => item.dispositivo).filter(Boolean))];
-            dispositivoFilter.innerHTML = dispositivos.map(dispositivo => 
-                `<option value="${dispositivo === 'Todos dispositivos' ? '' : dispositivo}">${dispositivo}</option>`
-            ).join('');
-        }
-
-        // Aplica os filtros selecionados
-        function applyFilters() {
-            const departamento = departamentoFilter.value;
-            const dispositivo = dispositivoFilter.value;
-            const status = statusFilter.value;
-            
-            filteredPatrimonios = allPatrimonios.filter(item => {
-                const matchesDepartamento = !departamento || (item.departamento === departamento);
-                const matchesDispositivo = !dispositivo || (item.dispositivo === dispositivo);
-                const matchesStatus = !status || (item.ativo === status);
-                
-                return matchesDepartamento && matchesDispositivo && matchesStatus;
-            });
-            
-            renderData(filteredPatrimonios);
-            updateItemCounter();
-        }
-
-        // Atualiza o contador de itens
-        function updateItemCounter() {
-            const total = allPatrimonios.length;
-            const filtered = filteredPatrimonios.length;
-            
-            if (filtered === total) {
-                itemCounter.textContent = `${total} itens`;
-            } else {
-                itemCounter.textContent = `${filtered} de ${total} itens`;
-            }
-        }
-
-        // Renderiza os dados na tela
+        // Função renderData corrigida
         function renderData(items) {
             if (!items || items.length === 0) {
                 dataContainer.innerHTML = `
@@ -241,67 +140,129 @@
                 return;
             }
 
-            dataContainer.innerHTML = items.map(item => `
-                <div class="patrimonio-item fade-in">
-                    <div class="patrimonio-header">
-                        <div class="patrimonio-codigo">
-                            <i class="fas fa-barcode"></i> ${item.codigo}
+            dataContainer.innerHTML = items.map(item => {
+                // Determina o ícone e o título com base no tipo de equipamento
+                let icon = 'fas fa-box', title = 'Equipamento';
+                const equipamento = (item.equipamento || '').toLowerCase();
+                
+                if (equipamento.includes('cpu')) {
+                    icon = 'fas fa-desktop';
+                    title = 'CPU';
+                } else if (equipamento.includes('monitor')) {
+                    icon = 'fas fa-tv';
+                    title = 'Monitor';
+                } else if (equipamento.includes('switch')) {
+                    icon = 'fas fa-network-wired';
+                    title = 'Switch';
+                } else if (equipamento.includes('roteador')) {
+                    icon = 'fas fa-route';
+                    title = 'Roteador';
+                } else if (equipamento.includes('scanner')) {
+                    icon = 'fas fa-scanner';
+                    title = 'Scanner';
+                } else if (equipamento.includes('rack')) {
+                    icon = 'fas fa-server';
+                    title = 'Rack';
+                }
+
+                // Cria os campos específicos para cada tipo de equipamento
+                let specificFields = '';
+                
+                if (equipamento.includes('cpu')) {
+                    specificFields = `
+                        <div class="patrimonio-detalhe">
+                            <span class="detalhe-label">Memória:</span>
+                            <span class="detalhe-valor">${item.memoria || 'Não informado'}</span>
                         </div>
-                        ${item.departamento ? `
-                        <div class="patrimonio-departamento">
-                            <i class="fas fa-building"></i> ${item.departamento}
-                        </div>` : ''}
+                        <div class="patrimonio-detalhe">
+                            <span class="detalhe-label">HD:</span>
+                            <span class="detalhe-valor">${item.hd || 'Não informado'}</span>
+                        </div>
+                        <div class="patrimonio-detalhe">
+                            <span class="detalhe-label">Processador:</span>
+                            <span class="detalhe-valor">${item.processador || 'Não informado'}</span>
+                        </div>
+                        <div class="patrimonio-detalhe">
+                            <span class="detalhe-label">Sistema:</span>
+                            <span class="detalhe-valor">${item.sistema || 'Não informado'}</span>
+                        </div>
+                        <div class="patrimonio-detalhe">
+                            <span class="detalhe-label">IP:</span>
+                            <span class="detalhe-valor">${item.ip || 'Não informado'}</span>
+                        </div>
+                        <div class="patrimonio-detalhe">
+                            <span class="detalhe-label">Hostname:</span>
+                            <span class="detalhe-valor">${item.hostname || 'Não informado'}</span>
+                        </div>
+                    `;
+                } else if (equipamento.includes('monitor')) {
+                    specificFields = `
+                        <div class="patrimonio-detalhe">
+                            <span class="detalhe-label">Tamanho:</span>
+                            <span class="detalhe-valor">${item.tamanho || 'Não informado'}</span>
+                        </div>
+                    `;
+                } else if (equipamento.includes('switch') || equipamento.includes('roteador')) {
+                    specificFields = `
+                        <div class="patrimonio-detalhe">
+                            <span class="detalhe-label">Portas:</span>
+                            <span class="detalhe-valor">${item.portas || 'Não informado'}</span>
+                        </div>
+                    `;
+                }
+
+                return `
+                    <div class="patrimonio-item fade-in">
+                        <div class="patrimonio-header">
+                            <div class="patrimonio-codigo">
+                                <i class="${icon}"></i> ${item.codigo}
+                            </div>
+                            ${item.departamento ? `
+                                <div class="patrimonio-departamento">
+                                    <i class="fas fa-building"></i> ${item.departamento}
+                                </div>` : ''}
+                        </div>
+
+                        <div class="patrimonio-body">
+                            <div class="info-group">
+                                <h4 class="info-group-title"><i class="${icon}"></i> ${title}</h4>
+                                <div class="patrimonio-detalhe">
+                                    <span class="detalhe-label"><i class="fas fa-calendar-alt"></i> Data:</span>
+                                    <span class="detalhe-valor">${item.data}</span>
+                                </div>
+                                ${item.equipamento ? `
+                                    <div class="patrimonio-detalhe">
+                                        <span class="detalhe-label">Equipamento:</span>
+                                        <span class="detalhe-valor">${item.equipamento}</span>
+                                    </div>` : ''}
+                                ${item.marca ? `
+                                    <div class="patrimonio-detalhe">
+                                        <span class="detalhe-label">Marca:</span>
+                                        <span class="detalhe-valor">${item.marca}</span>
+                                    </div>` : ''}
+                                ${item.modelo ? `
+                                    <div class="patrimonio-detalhe">
+                                        <span class="detalhe-label">Modelo:</span>
+                                        <span class="detalhe-valor">${item.modelo}</span>
+                                    </div>` : ''}
+                                ${specificFields}
+                            </div>
+
+                            <div class="status-container">
+                                <span class="status-label">Status:</span>
+                                <div class="status-select">
+                                    <select class="status-selector" data-codigo="${item.codigo}">
+                                        <option value="Ativo" ${item.ativo == 'Ativo' ? 'selected' : ''} class="status-ativo">Ativo</option>
+                                        <option value="Manutenção" ${item.ativo == 'Manutenção' ? 'selected' : ''} class="status-manutencao">Manutenção</option>
+                                        <option value="Desativado" ${item.ativo == 'Desativado' ? 'selected' : ''} class="status-desativado">Desativado</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    
-                    <div class="patrimonio-body">
-                        <!-- Bloco de Informações Básicas -->
-                        <div class="info-group">
-                            <div class="patrimonio-detalhe">
-                                <span class="detalhe-label"><i class="fas fa-calendar-alt"></i> Data:</span>
-                                <span class="detalhe-valor">${item.data}</span>
-                            </div>
-                            <div class="patrimonio-detalhe">
-                                <span class="detalhe-label"><i class="fas fa-mobile-alt"></i> Dispositivo:</span>
-                                <span class="detalhe-valor">${item.dispositivo}</span>
-                            </div>
-                        </div>
-                        
-                        <!-- Bloco de Detalhes do Equipamento -->
-                        <div class="info-group">
-                            <h4 class="info-group-title"><i class="fas fa-laptop"></i> Especificações</h4>
-                            ${item.equipamento ? `
-                            <div class="patrimonio-detalhe">
-                                <span class="detalhe-label">Equipamento:</span>
-                                <span class="detalhe-valor">${item.equipamento}</span>
-                            </div>` : ''}
-                            
-                            ${item.marca ? `
-                            <div class="patrimonio-detalhe">
-                                <span class="detalhe-label">Marca:</span>
-                                <span class="detalhe-valor">${item.marca}</span>
-                            </div>` : ''}
-                            
-                            ${item.modelo ? `
-                            <div class="patrimonio-detalhe">
-                                <span class="detalhe-label">Modelo:</span>
-                                <span class="detalhe-valor">${item.modelo}</span>
-                            </div>` : ''}
-                        </div>
-                        
-                        <!-- Status com Spinner -->
-                        <div class="status-container">
-                            <span class="status-label">Status:</span>
-                            <div class="status-select">
-                                <select class="status-selector" data-codigo="${item.codigo}">
-                                    <option value="Ativo" ${item.ativo === 'Ativo' ? 'selected' : ''} class="status-ativo">Ativo</option>
-                                    <option value="Manutenção" ${item.ativo === 'Manutenção' ? 'selected' : ''} class="status-manutencao">Manutenção</option>
-                                    <option value="Desativado" ${item.ativo === 'Desativado' ? 'selected' : ''} class="status-desativado">Desativado</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
+
 
             // Adiciona eventos aos selects de status
             document.querySelectorAll('.status-selector').forEach(select => {
@@ -337,15 +298,7 @@
             console.log(`Atualizando status do patrimônio ${codigo} para ${novoStatus}`);
             // Aqui você pode adicionar lógica para atualizar no servidor se necessário
             // Por enquanto só mostra um alerta
-            Toastify({
-                text: `Status de ${codigo} atualizado para ${novoStatus}`,
-                duration: 3000,
-                close: true,
-                gravity: "top",
-                position: "right",
-                backgroundColor: novoStatus === 'Ativo' ? "#4cc9f0" : 
-                                novoStatus === 'Manutenção' ? "#f8961e" : "#f72585",
-            }).showToast();
+            showToast(`Status de ${codigo} atualizado para ${novoStatus}`, 'success');
         }
 
         function showError(error) {
@@ -360,13 +313,12 @@
                         <button onclick="loadData()" class="btn btn-primary">
                             <i class="fas fa-sync-alt"></i> Tentar novamente
                         </button>
-                        <a href="https://gist.github.com/tcigualchi/${GIST_ID}" target="_blank" class="btn btn-primary">
+                        <a href="https://gist.github.com/rcigualchi/${GIST_ID}" target="_blank" class="btn btn-primary">
                             <i class="fas fa-external-link-alt"></i> Acessar Gist
                         </a>
                     </div>
                 </div>
             `;
-            
             updateItemCounter();
         }
 
@@ -400,158 +352,144 @@
 
         function showLoading() {
             loadingElement.style.display = 'flex';
-            dataContainer.innerHTML = '';
+            dataContainer.innerHTML = "";
         }
 
         function hideLoading() {
             loadingElement.style.display = 'none';
         }
-        
+
         function resetFilters() {
-            departamentoFilter.value = '';
-            dispositivoFilter.value = '';
-            statusFilter.value = '';
+            departamentoFilter.value = "";
+            dispositivoFilter.value = "";
+            statusFilter.value = "";
             applyFilters();
         }
 
-// Funções para exportação CSV
-function openExportModal() {
-    exportModal.style.display = 'flex';
-    updateCsvPreview();
-}
-
-function closeExportModal() {
-    exportModal.style.display = 'none';
-}
-
-// Função para limpar e preparar os dados
-function sanitizeField(value) {
-    if (!value) return '';
-    return String(value)
-        .replace(/"/g, '""')           // Escape para aspas duplas
-        .replace(/[\r\n]+/g, ' ')      // Remove quebras de linha
-        .trim();
-}
-
-// Função para formatar data
-function formatDate(dateStr, format) {
-    if (!dateStr) return '';
-    const date = new Date(dateStr);
-    if (isNaN(date)) return dateStr;
-
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = date.getFullYear();
-
-    return format === 'csv-pt' ? `${day}/${month}/${year}` : `${year}-${month}-${day}`;
-}
-
-    function updateCsvPreview() {
-        const itemsToExport = exportContent.value === 'all' ? allPatrimonios : filteredPatrimonios;
-        const format = exportFormat.value;
-
-        if (itemsToExport.length === 0) {
-            csvPreview.textContent = "Nenhum dado disponível para exportação";
-            return;
+        // Funções para exportação CSV
+        function openExportModal() {
+            exportModal.style.display = 'flex';
+            updateCsvPreview();
         }
 
-        const delimiter = format === 'csv-pt' ? ';' : ',';
-
-        const headers = [
-            'Codigo', 'Departamento', 'Data', 'Dispositivo', 
-            'Equipamento', 'Marca', 'Modelo', 'Status'
-        ];
-
-        const rows = itemsToExport.map(item => {
-            return [
-                `"${sanitizeField(item.codigo)}"`,
-                `"${sanitizeField(item.departamento)}"`,
-                `"${formatDate(item.data, format)}"`,
-                `"${sanitizeField(item.dispositivo)}"`,
-                `"${sanitizeField(item.equipamento)}"`,
-                `"${sanitizeField(item.marca)}"`,
-                `"${sanitizeField(item.modelo)}"`,
-                `"${sanitizeField(item.ativo)}"`
-            ].join(delimiter);
-        });
-
-        const csvContent = [headers.join(delimiter), ...rows].join('\n');
-        csvPreview.textContent = '\uFEFF' + csvContent; // Adiciona BOM para compatibilidade com Excel
-    }
-
-    function downloadCSV() {
-        const itemsToExport = exportContent.value === 'all' ? allPatrimonios : filteredPatrimonios;
-        const format = exportFormat.value;
-
-        if (itemsToExport.length === 0) {
-            showToast('Nenhum dado para exportar', 'error');
-            return;
+        function closeExportModal() {
+            exportModal.style.display = 'none';
         }
 
-        const delimiter = format === 'csv-pt' ? ';' : ',';
-        const filename = `patrimonios_${new Date().toISOString().slice(0, 10)}.csv`;
+        // Função para limpar e preparar os dados
+        function sanitizeField(value) {
+            if (!value) return "";
+            return String(value)
+                .replace(/"/g, '""')    // Escape para aspas duplas
+                .replace(/[\r\n]+/g, ' ')   // Remove quebras de linha
+                .trim();
+        }
 
-        const headers = [
-            'Codigo', 'Departamento', 'Data', 'Dispositivo', 
-            'Equipamento', 'Marca', 'Modelo', 'Status'
-        ];
-
-        const rows = itemsToExport.map(item => {
-            return [
-                `"${sanitizeField(item.codigo)}"`,
-                `"${sanitizeField(item.departamento)}"`,
-                `"${formatDate(item.data, format)}"`,
-                `"${sanitizeField(item.dispositivo)}"`,
-                `"${sanitizeField(item.equipamento)}"`,
-                `"${sanitizeField(item.marca)}"`,
-                `"${sanitizeField(item.modelo)}"`,
-                `"${sanitizeField(item.ativo)}"`
-            ].join(delimiter);
-        });
-
-        const csvContent = '\uFEFF' + [headers.join(delimiter), ...rows].join('\n'); // BOM incluso
-
-        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.setAttribute('download', filename);
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-
-        showToast('Exportação concluída com sucesso!', 'success');
-        closeExportModal();
-    }
-
-        // Inicialização
-        document.addEventListener('DOMContentLoaded', () => {
-            loadData();
-            setInterval(loadData, REFRESH_INTERVAL);
+        // Função para formatar data
+        function formatDate(dateStr, format) {
+            if (!dateStr) return "";
+            const date = new Date(dateStr);
+            if (isNaN(date)) return dateStr;
             
-            // Adiciona eventos aos filtros
-            departamentoFilter.addEventListener('change', applyFilters);
-            dispositivoFilter.addEventListener('change', applyFilters);
-            statusFilter.addEventListener('change', applyFilters);
-            resetFiltersBtn.addEventListener('click', resetFilters);
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
             
-            // Adiciona efeito de rotação ao botão de atualização quando hover
-            refreshBtn.addEventListener('mouseenter', () => {
-                refreshBtn.querySelector('i').style.transform = 'rotate(30deg)';
+            return format == 'csv-pt' ? `${day}/${month}/${year}` : `${year}-${month}-${day}`;
+        }
+
+        function updateCsvPreview() {
+            const itemsToExport = exportContent.value === 'all' ? allPatrimonios : filteredPatrimonios;
+            const format = exportFormat.value;
+            
+            if (itemsToExport.length === 0) {
+                csvPreview.textContent = "Nenhum dado disponível para exportação";
+                return;
+            }
+            
+            const delimiter = format === 'csv-pt' ? ';' : ',';
+            const headers = [
+                'Codigo', 'Departamento', 'Data', 'Equipamento', 'Marca', 'Modelo', 
+                'Status', 'Memoria', 'HD', 'Processador', 'Sistema', 'IP', 'Hostname', 
+                'Tamanho', 'Portas'
+            ];
+            
+            const rows = itemsToExport.map(item => {
+                return [
+                    `"${sanitizeField(item.codigo)}"`,
+                    `"${sanitizeField(item.departamento)}"`,
+                    `"${formatDate(item.data, format)}"`,
+                    `"${sanitizeField(item.equipamento)}"`,
+                    `"${sanitizeField(item.marca)}"`,
+                    `"${sanitizeField(item.modelo)}"`,
+                    `"${sanitizeField(item.ativo)}"`,
+                    `"${sanitizeField(item.memoria)}"`,
+                    `"${sanitizeField(item.hd)}"`,
+                    `"${sanitizeField(item.processador)}"`,
+                    `"${sanitizeField(item.sistema)}"`,
+                    `"${sanitizeField(item.ip)}"`,
+                    `"${sanitizeField(item.hostname)}"`,
+                    `"${sanitizeField(item.tamanho)}"`,
+                    `"${sanitizeField(item.portas)}"`
+                ].join(delimiter);
             });
             
-            refreshBtn.addEventListener('mouseleave', () => {
-                refreshBtn.querySelector('i').style.transform = 'rotate(0)';
+            const csvContent = [headers.join(delimiter), ...rows].join('\n');
+            csvPreview.textContent = '\uFEFF' + csvContent; // Adiciona BOM para compatibilidade com Excel
+        }
+
+        function downloadCSV() {
+            const itemsToExport = exportContent.value === 'all' ? allPatrimonios : filteredPatrimonios;
+            const format = exportFormat.value;
+            
+            if (itemsToExport.length === 0) {
+                showToast('Nenhum dado para exportar', 'error');
+                return;
+            }
+            
+            const delimiter = format === 'csv-pt' ? ';' : ',';
+            const filename = `patrimonios_${new Date().toISOString().slice(0, 10)}.csv`;
+            
+            const headers = [
+                'Codigo', 'Departamento', 'Data', 'Equipamento', 'Marca', 'Modelo', 
+                'Status', 'Memoria', 'HD', 'Processador', 'Sistema', 'IP', 'Hostname', 
+                'Tamanho', 'Portas'
+            ];
+            
+            const rows = itemsToExport.map(item => {
+                return [
+                    `"${sanitizeField(item.codigo)}"`,
+                    `"${sanitizeField(item.departamento)}"`,
+                    `"${formatDate(item.data, format)}"`,
+                    `"${sanitizeField(item.equipamento)}"`,
+                    `"${sanitizeField(item.marca)}"`,
+                    `"${sanitizeField(item.modelo)}"`,
+                    `"${sanitizeField(item.ativo)}"`,
+                    `"${sanitizeField(item.memoria)}"`,
+                    `"${sanitizeField(item.hd)}"`,
+                    `"${sanitizeField(item.processador)}"`,
+                    `"${sanitizeField(item.sistema)}"`,
+                    `"${sanitizeField(item.ip)}"`,
+                    `"${sanitizeField(item.hostname)}"`,
+                    `"${sanitizeField(item.tamanho)}"`,
+                    `"${sanitizeField(item.portas)}"`
+                ].join(delimiter);
             });
             
-            // Eventos para exportação
-            exportBtn.addEventListener('click', openExportModal);
-            modalClose.addEventListener('click', closeExportModal);
-            cancelExport.addEventListener('click', closeExportModal);
-            confirmExport.addEventListener('click', downloadCSV);
-            exportFormat.addEventListener('change', updateCsvPreview);
-            exportContent.addEventListener('change', updateCsvPreview);
-        });
+            const csvContent = '\uFEFF' + [headers.join(delimiter), ...rows].join('\n'); // BOM incluso
+            
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', filename);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            showToast('Exportação concluída com sucesso!', 'success');
+            closeExportModal();
+        }
 
         // Função para mostrar notificações
         function showToast(message, type = 'info') {
@@ -571,8 +509,36 @@ function formatDate(dateStr, format) {
                 backgroundColor: colors[type] || colors.info,
             }).showToast();
         }
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', () => {
+            loadData();
+            setInterval(loadData, REFRESH_INTERVAL);
+
+            // Adiciona eventos aos filtros
+            departamentoFilter.addEventListener('change', applyFilters);
+            dispositivoFilter.addEventListener('change', applyFilters);
+            statusFilter.addEventListener('change', applyFilters);
+            resetFiltersBtn.addEventListener('click', resetFilters);
+
+            // Adiciona efeito de rotação ao botão de atualização quando hover
+            refreshBtn.addEventListener('mouseenter', () => {
+                refreshBtn.querySelector('i').style.transform = 'rotate(30deg)';
+            });
+            refreshBtn.addEventListener('mouseleave', () => {
+                refreshBtn.querySelector('i').style.transform = 'rotate(0)';
+            });
+
+            // Eventos para exportação
+            exportBtn.addEventListener('click', openExportModal);
+            modalClose.addEventListener('click', closeExportModal);
+            cancelExport.addEventListener('click', closeExportModal);
+            confirmExport.addEventListener('click', downloadCSV);
+            exportFormat.addEventListener('change', updateCsvPreview);
+            exportContent.addEventListener('change', updateCsvPreview);
+        });
     </script>
-    
+
     <!-- Adicione isso no head se quiser usar Toastify para notificações -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
