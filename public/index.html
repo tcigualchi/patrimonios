@@ -71,7 +71,7 @@
             <div id="last-update" class="timestamp"></div>
             <div>
                 <span id="item-counter" class="counter-badge">0 itens</span>
-                <button id="refresh-btn" class="refresh-btn" onclick="loadData()">
+                <button id="refresh-btn" class="refresh-btn">
                     <i class="fas fa-sync-alt"></i> Atualizar
                 </button>
             </div>
@@ -121,9 +121,108 @@
         const GIST_URL = `https://gist.githubusercontent.com/teigualchi/${GIST_ID}/raw/${GIST_FILE}`;
         const REFRESH_INTERVAL = 300000; // 5 Minutos
 
-        // Restante do seu código JavaScript...
+        // Elementos DOM
+        const loadingElement = document.getElementById('loading');
+        const dataContainer = document.getElementById('data-container');
+        const lastUpdateElement = document.getElementById('last-update');
+        const refreshBtn = document.getElementById('refresh-btn');
+        const departamentoFilter = document.getElementById('departamento-filter');
+        const dispositivoFilter = document.getElementById('dispositivo-filter');
+        const statusFilter = document.getElementById('status-filter');
+        const resetFiltersBtn = document.getElementById('reset-filters');
+        const itemCounter = document.getElementById('item-counter');
+        const exportBtn = document.getElementById('export-btn');
+        const exportModal = document.getElementById('export-modal');
+        const modalClose = document.querySelector('.modal-close');
+        const cancelExport = document.getElementById('cancel-export');
+        const confirmExport = document.getElementById('confirm-export');
+        const exportFormat = document.getElementById('export-format');
+        const exportContent = document.getElementById('export-content');
+        const csvPreview = document.getElementById('csv-preview');
 
-        // Função renderData corrigida
+        // Estado da aplicação
+        let isLoading = false;
+        let allPatrimonios = [];
+        let filteredPatrimonios = [];
+
+        // Função principal para carregar dados
+        async function loadData() {
+            if (isLoading) return;
+
+            try {
+                isLoading = true;
+                showLoading();
+                refreshBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Atualizando...';
+                
+                const timestamp = new Date().getTime();
+                const response = await fetch(`${GIST_URL}?t=${timestamp}`);
+                
+                if (!response.ok) {
+                    throw new Error(`Error ${response.status}: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                allPatrimonios = Array.isArray(data) ? data : [];
+                updateFiltersDropdowns();
+                applyFilters();
+                updateLastUpdate();
+            } catch (error) {
+                showError(error);
+                console.error('Error ao carregar dados:', error);
+            } finally {
+                isLoading = false;
+                hideLoading();
+                refreshBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Atualizar';
+            }
+        }
+
+        // Atualiza os dropdowns de filtro com valores únicos
+            function updateFiltersDropdowns() {
+        // Filtro por departamento
+        const departamentos = ["Todos departamentos", ...new Set(allPatrimonios.map(item => item.departamento).filter(Boolean))];
+        departamentoFilter.innerHTML = departamentos.map(depto => 
+            `<option value="${depto === 'Todos departamentos' ? '' : depto}">${depto}</option>`
+        ).join('');
+
+        // Filtro por dispositivo
+        const dispositivos = ["Todos dispositivos", ...new Set(allPatrimonios.map(item => item.dispositivo).filter(Boolean))];
+        dispositivoFilter.innerHTML = dispositivos.map(dispositivo => 
+            `<option value="${dispositivo === 'Todos dispositivos' ? '' : dispositivo}">${dispositivo}</option>`
+        ).join('');
+    }
+
+
+        // Aplica os filtros selecionados
+        function applyFilters() {
+            const departamento = departamentoFilter.value;
+            const dispositivo = dispositivoFilter.value;
+            const status = statusFilter.value;
+
+            filteredPatrimonios = allPatrimonios.filter(item => {
+                const matchesDepartamento = !departamento || (item.departamento === departamento);
+                const matchesDispositivo = !dispositivo || (item.dispositivo === dispositivo);
+                const matchesStatus = !status || (item.ativo === status);
+                
+                return matchesDepartamento && matchesDispositivo && matchesStatus;
+            });
+
+            renderData(filteredPatrimonios);
+            updateItemCounter();
+        }
+
+        // Atualiza o contador de itens
+        function updateItemCounter() {
+            const total = allPatrimonios.length;
+            const filtered = filteredPatrimonios.length;
+
+            if (filtered === total) {
+                itemCounter.textContent = `${total} itens`;
+            } else {
+                itemCounter.textContent = `${filtered} de ${total} itens`;
+            }
+        }
+
+        // Renderiza os dados na tela
         function renderData(items) {
             if (!items || items.length === 0) {
                 dataContainer.innerHTML = `
@@ -264,7 +363,6 @@
                 `;
             }).join('');
 
-
             // Adiciona eventos aos selects de status
             document.querySelectorAll('.status-selector').forEach(select => {
                 select.addEventListener('change', function() {
@@ -297,8 +395,6 @@
 
         function updateStatus(codigo, novoStatus) {
             console.log(`Atualizando status do patrimônio ${codigo} para ${novoStatus}`);
-            // Aqui você pode adicionar lógica para atualizar no servidor se necessário
-            // Por enquanto só mostra um alerta
             showToast(`Status de ${codigo} atualizado para ${novoStatus}`, 'success');
         }
 
@@ -377,7 +473,6 @@
             exportModal.style.display = 'none';
         }
 
-        // Função para limpar e preparar os dados
         function sanitizeField(value) {
             if (!value) return "";
             return String(value)
@@ -386,7 +481,6 @@
                 .trim();
         }
 
-        // Função para formatar data
         function formatDate(dateStr, format) {
             if (!dateStr) return "";
             const date = new Date(dateStr);
@@ -436,7 +530,7 @@
             });
             
             const csvContent = [headers.join(delimiter), ...rows].join('\n');
-            csvPreview.textContent = '\uFEFF' + csvContent; // Adiciona BOM para compatibilidade com Excel
+            csvPreview.textContent = '\uFEFF' + csvContent;
         }
 
         function downloadCSV() {
@@ -477,7 +571,7 @@
                 ].join(delimiter);
             });
             
-            const csvContent = '\uFEFF' + [headers.join(delimiter), ...rows].join('\n'); // BOM incluso
+            const csvContent = '\uFEFF' + [headers.join(delimiter), ...rows].join('\n');
             
             const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
             const url = URL.createObjectURL(blob);
@@ -492,7 +586,6 @@
             closeExportModal();
         }
 
-        // Função para mostrar notificações
         function showToast(message, type = 'info') {
             const colors = {
                 info: '#4361ee',
@@ -516,13 +609,13 @@
             loadData();
             setInterval(loadData, REFRESH_INTERVAL);
 
-            // Adiciona eventos aos filtros
+            // Configura os event listeners
             departamentoFilter.addEventListener('change', applyFilters);
             dispositivoFilter.addEventListener('change', applyFilters);
             statusFilter.addEventListener('change', applyFilters);
             resetFiltersBtn.addEventListener('click', resetFilters);
 
-            // Adiciona efeito de rotação ao botão de atualização quando hover
+            refreshBtn.addEventListener('click', loadData);
             refreshBtn.addEventListener('mouseenter', () => {
                 refreshBtn.querySelector('i').style.transform = 'rotate(30deg)';
             });
@@ -530,7 +623,6 @@
                 refreshBtn.querySelector('i').style.transform = 'rotate(0)';
             });
 
-            // Eventos para exportação
             exportBtn.addEventListener('click', openExportModal);
             modalClose.addEventListener('click', closeExportModal);
             cancelExport.addEventListener('click', closeExportModal);
@@ -540,7 +632,7 @@
         });
     </script>
 
-    <!-- Adicione isso no head se quiser usar Toastify para notificações -->
+    <!-- Toastify para notificações -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </body>
