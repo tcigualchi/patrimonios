@@ -36,5 +36,24 @@
     "hostname": "",
     "tamanho": "",
     "portas": "558"
+  },
+  {
+    "codigo": "24718820",
+    "data": "25\/04\/2025 10:24:46",
+    "ordem": 1,
+    "departamento": "Teste",
+    "equipamento": "MONITOR",
+    "marca": "Dddd",
+    "modelo": "sss",
+    "dispositivo": "moto g71 5G",
+    "ativo": "Ativo",
+    "memoria": "",
+    "hd": "",
+    "processador": "",
+    "sistema": "",
+    "ip": "",
+    "hostname": "",
+    "tamanho": "55",
+    "portas": ""
   }
 ]
