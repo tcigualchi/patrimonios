@@ -55,5 +55,24 @@
     "hostname": "",
     "tamanho": "55",
     "portas": ""
+  },
+  {
+    "codigo": "01141954",
+    "data": "29\/04\/2025 16:21:17",
+    "ordem": 1,
+    "departamento": "Lab 14",
+    "equipamento": "CPU",
+    "marca": "Accept ",
+    "modelo": "Accept",
+    "dispositivo": "moto g71 5G",
+    "ativo": "Ativo",
+    "memoria": "16",
+    "hd": "500",
+    "processador": "I5 12000",
+    "sistema": "Ubuntu\/Windows ",
+    "ip": "192.168.10.17",
+    "hostname": "LAB14_17",
+    "tamanho": "",
+    "portas": ""
   }
 ]
