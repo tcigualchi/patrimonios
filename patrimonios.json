@@ -872,5 +872,24 @@
     "hostname": "",
     "tamanho": "19",
     "portas": ""
+  },
+  {
+    "codigo": "820224",
+    "data": "03\/05\/2025 13:45:07",
+    "ordem": 95,
+    "departamento": "Anfiteatro C",
+    "equipamento": "MONITOR",
+    "marca": "AOC  F19L",
+    "modelo": "AOC ",
+    "dispositivo": "moto g71 5G",
+    "ativo": "Ativo",
+    "memoria": "",
+    "hd": "",
+    "processador": "",
+    "sistema": "",
+    "ip": "",
+    "hostname": "",
+    "tamanho": "19",
+    "portas": ""
   }
 ]
