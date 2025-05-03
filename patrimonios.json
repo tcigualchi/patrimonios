@@ -929,5 +929,24 @@
     "hostname": "",
     "tamanho": "20",
     "portas": ""
+  },
+  {
+    "codigo": "471862",
+    "data": "03\/05\/2025 13:58:43",
+    "ordem": 1,
+    "departamento": "laboratório conforto ambiental ",
+    "equipamento": "MONITOR",
+    "marca": "Braview",
+    "modelo": "5002LH",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo",
+    "memoria": "",
+    "hd": "",
+    "processador": "",
+    "sistema": "",
+    "ip": "",
+    "hostname": "",
+    "tamanho": "15",
+    "portas": ""
   }
 ]
