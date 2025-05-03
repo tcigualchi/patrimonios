@@ -891,5 +891,43 @@
     "hostname": "",
     "tamanho": "19",
     "portas": ""
+  },
+  {
+    "codigo": "505514",
+    "data": "03\/05\/2025 13:48:53",
+    "ordem": 96,
+    "departamento": "Sala Servidores",
+    "equipamento": "MONITOR",
+    "marca": "LG ",
+    "modelo": "FLATRON W1643C",
+    "dispositivo": "moto g71 5G",
+    "ativo": "Ativo",
+    "memoria": "",
+    "hd": "",
+    "processador": "",
+    "sistema": "",
+    "ip": "",
+    "hostname": "",
+    "tamanho": "16",
+    "portas": ""
+  },
+  {
+    "codigo": "01047128",
+    "data": "03\/05\/2025 13:54:35",
+    "ordem": 1,
+    "departamento": "Agência Modelo ",
+    "equipamento": "MONITOR",
+    "marca": "AOC",
+    "modelo": "E2050SDAN",
+    "dispositivo": "2201117SG",
+    "ativo": "Ativo",
+    "memoria": "",
+    "hd": "",
+    "processador": "",
+    "sistema": "",
+    "ip": "",
+    "hostname": "",
+    "tamanho": "20",
+    "portas": ""
   }
 ]
