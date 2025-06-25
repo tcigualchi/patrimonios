@@ -1499,5 +1499,24 @@
     "hostname": "",
     "tamanho": "",
     "portas": ""
+  },
+  {
+    "codigo": "01047200",
+    "data": "25\/06\/2025 15:51:31",
+    "ordem": 1,
+    "departamento": "Sala De Provas Ava-ADM",
+    "equipamento": "SWITCH",
+    "marca": "TP-Link",
+    "modelo": "tl-sg1016",
+    "dispositivo": "moto g71 5G",
+    "ativo": "Ativo",
+    "memoria": "",
+    "hd": "",
+    "processador": "",
+    "sistema": "",
+    "ip": "",
+    "hostname": "",
+    "tamanho": "",
+    "portas": "16"
   }
 ]
