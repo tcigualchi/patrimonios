@@ -1,0 +1,113 @@
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.time.Duration;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
+public class DinosaurApiClient {
+    private static final String BASE_URL = "http://localhost:6434";
+    private final HttpClient client;
+    private final Gson gson;
+    
+    public DinosaurApiClient() {
+        this.client = HttpClient.newHttpClient();
+        this.gson = new Gson();
+    }
+    
+    // GET /dinosaurs - Lista todos os dinossauros
+    public String getAllDinosaurs() throws Exception {
+        return makeGetRequest("/dinosaurs");
+    }
+    
+    // GET /dinosaurs/:name - Busca dinossauro por nome
+    public String getDinosaurByName(String name) throws Exception {
+        return makeGetRequest("/dinosaurs/" + name.toLowerCase());
+    }
+    
+    // GET /name/:alphabet - Busca dinossauros por letra inicial
+    public String getDinosaursByLetter(String letter) throws Exception {
+        return makeGetRequest("/name/" + letter.toLowerCase());
+    }
+    
+    // GET /era - Lista todas as eras disponíveis
+    public String getAllEras() throws Exception {
+        return makeGetRequest("/era");
+    }
+    
+    // GET /found - Lista locais de descoberta
+    public String getAllFoundPlaces() throws Exception {
+        return makeGetRequest("/found");
+    }
+    
+    // GET /type - Lista tipos
+    public String getAllTypes() throws Exception {
+        return makeGetRequest("/type");
+    }
+    
+    // GET /body_type - Lista por tipo de corpo
+    public String getBodyTypes() throws Exception {
+        return makeGetRequest("/body_type");
+    }
+    
+    // GET /diet - Lista por tipo de dieta
+    public String getDiets() throws Exception {
+        return makeGetRequest("/diet");
+    }
+    
+    // Método auxiliar para requisições GET
+    private String makeGetRequest(String endpoint) throws Exception {
+        HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create(BASE_URL + endpoint))
+            .timeout(Duration.ofSeconds(10))
+            .header("Accept", "application/json")
+            .GET()
+            .build();
+        
+        HttpResponse<String> response = client.send(request,
+            HttpResponse.BodyHandlers.ofString());
+        
+        if (response.statusCode() == 200) {
+            return response.body();
+        } else {
+            throw new RuntimeException("Falha na API. Código: " + response.statusCode() + 
+                                     " - Endpoint: " + endpoint);
+        }
+    }
+    
+    public static void main(String[] args) {
+        DinosaurApiClient client = new DinosaurApiClient();
+        
+        try {
+            // Teste 1: Listar todos os dinossauros
+            System.out.println("=== TODOS OS DINOSSAUROS ===");
+            String allDinos = client.getAllDinosaurs();
+            System.out.println(allDinos);
+            
+            // Teste 2: Buscar dinossauro por nome
+            System.out.println("\n=== BUSCAR POR NOME: T-REX ===");
+            String dino = client.getDinosaurByName("t-rex");
+            System.out.println(dino);
+            
+            // Teste 3: Buscar dinossauros por letra
+            System.out.println("\n=== DINOSSAUROS COM LETRA 'T' ===");
+            String byLetter = client.getDinosaursByLetter("t");
+            System.out.println(byLetter);
+            
+            // Teste 4: Listar todas as eras
+            System.out.println("\n=== ERAS DISPONÍVEIS ===");
+            String eras = client.getAllEras();
+            System.out.println(eras);
+            
+            // Teste 5: Listar locais de descoberta
+            System.out.println("\n=== LOCAIS DE DESCOBERTA ===");
+            String places = client.getAllFoundPlaces();
+            System.out.println(places);
+            
+        } catch (Exception e) {
+            System.err.println("Erro ao conectar com a API: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+}
